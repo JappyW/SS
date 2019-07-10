@@ -1,0 +1,52 @@
+<div class="container">
+ 
+        <h1 style="margin-top: 25px;">
+          {{title}}
+        </h1>
+       
+        <div class="row" style="margin-top: 25px;">
+          
+          <div class="col-md-3">
+            <input type="text" class="form-control" [(ngModel)]="name" placeholder="Name">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" [(ngModel)]="description" placeholder="Description">
+          </div>
+          <div class="col-md-3">
+            <button type="button" (click)="create()" [disabled]="!name || !description" class="btn btn-primary">+
+              Create Project</button>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 25px;">
+          <div class="col-md-3">
+            <div class="card" style="width: 18rem;" *ngFor="let item of projects">
+              <div class="card-body" *ngIf="!item.isEdit; else elseBlock">
+                <h5 class="card-title">{{item.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Description: {{item.description}} Years</h6>
+                <a href="#" class="card-link" (click)="edit(item)">Edit</a>
+                <a href="#" class="card-link" (click)="delete(item.id)">Delete</a>
+              </div>
+              <ng-template #elseBlock>
+                <div class="card-body">
+                  <h5 class="card-title">Edit</h5>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input type="text" class="form-control" [(ngModel)]="item.EditName" placeholder="Edit Name">
+                      </div>
+                      <div class="col-md-12">
+                        <input type="text" class="form-control" [(ngModel)]="item.EditDescription" placeholder="Edit Description">
+                      </div>
+                    </div>
+                  </div>
+       
+                  <a href="#" class="card-link" (click)="item.isEdit = false">Cancel</a>
+                  <a href="#" class="card-link" (click)="updateProject(item)">Update</a>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+       
+       
+      </div>
