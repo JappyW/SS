@@ -7,25 +7,30 @@
         <div class="row" style="margin-top: 25px;">
           
           <div class="col-md-3">
-            <input type="text" class="form-control" [(ngModel)]="name" placeholder="Name">
+            <input type="text" id="nameEdit" class="form-control" [(ngModel)]="projectName" placeholder="Name">
           </div>
           <div class="col-md-3">
-            <input type="text" class="form-control" [(ngModel)]="description" placeholder="Description">
+            <input type="text" class="form-control" [(ngModel)]="projectDescription" placeholder="Description">
           </div>
           <div class="col-md-3">
-            <button type="button" (click)="create()" [disabled]="!name || !description" class="btn btn-primary">+
+            <button type="button" (click)="create()" [disabled]="(!projectName || !projectDescription) " class="btn btn-primary">+
               Create Project</button>
           </div>
         </div>
         <div class="row" style="margin-top: 25px;">
           <div class="col-md-3">
-            <div class="card" style="width: 18rem;" *ngFor="let item of projects">
-              <div class="card-body" *ngIf="!item.isEdit; else elseBlock">
+            <input type="text" [(ngModel)]="term">
+            <div class="card" style="width: 18rem; margin-top: 20px;" *ngFor="let item of projects |filter:term |  paginate: { itemsPerPage: 5, currentPage: p }">
+              <div class="card-body" *ngIf="!item.isEdit; else elseBlock" >
                 <h5 class="card-title">{{item.name}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Description: {{item.description}} Years</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Description: {{item.description}}</h6>
                 <a href="#" class="card-link" (click)="edit(item)">Edit</a>
                 <a href="#" class="card-link" (click)="delete(item.id)">Delete</a>
               </div>
+              <ng-template #ShowAllBlock>
+                
+                <button class="btn btn-primary " type="button" (click)="showAllProjects()">Show All</button>
+              </ng-template>
               <ng-template #elseBlock>
                 <div class="card-body">
                   <h5 class="card-title">Edit</h5>
@@ -38,15 +43,17 @@
                         <input type="text" class="form-control" [(ngModel)]="item.EditDescription" placeholder="Edit Description">
                       </div>
                     </div>
-                  </div>
-       
+                  </div>       
                   <a href="#" class="card-link" (click)="item.isEdit = false">Cancel</a>
-                  <a href="#" class="card-link" (click)="updateProject(item)">Update</a>
+                  <a href="#" class="card-link" (click)="update(item)">Update</a>
                 </div>
               </ng-template>
             </div>
+            
           </div>
+
         </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
        
        
       </div>

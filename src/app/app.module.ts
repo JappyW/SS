@@ -14,6 +14,17 @@ import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
 import { ProjectService } from "./shared/projects.service";
 import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { AuthService } from './shared/auth.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+
 
 @NgModule({
   declarations: [
@@ -21,7 +32,13 @@ import { FormsModule } from '@angular/forms';
     ProjectsComponent,
     ProjectComponent,
     UsersComponent,
-    UserComponent
+    UserComponent,
+    DashboardComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -29,9 +46,12 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    Ng2SearchPipeModule,
+    AngularFireAuthModule,
+    NgxPaginationModule
   ],
-  providers: [{ provide: FirestoreSettingsToken, useValue: {} },ProjectService],
+  providers: [AuthService,{ provide: FirestoreSettingsToken, useValue: {} },ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

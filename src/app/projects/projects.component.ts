@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'src/app/shared/projects.service'
-import { Project } from 'src/app/project.model'
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-projects',
@@ -8,11 +8,12 @@ import { Project } from 'src/app/project.model'
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  
-  constructor(private projectService: ProjectService) { }
+  filteredItems: any;
   projects: any;
   projectName: string;
-  projectDescription: number;
+  projectDescription: string;
+  
+  constructor(private projectService: ProjectService, public authService: AuthService) { } 
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(data =>{
@@ -20,13 +21,15 @@ export class ProjectsComponent implements OnInit {
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
-          description: e.payload.doc.data()['description']  
-        } 
+          description: e.payload.doc.data()['description'],
+        };
       })
+      console.log(this.projects);
     });
   }
 
   create() {
+    if(this.authService.isLoggedIn){
     let record = {};
     record['name'] = this.projectName;
     record['description'] = this.projectDescription;
@@ -38,8 +41,13 @@ export class ProjectsComponent implements OnInit {
       .catch(error => {
         console.log(error);
       });
+    }
+    else{
+      alert("You`re not registered!")
+    }
   }
   edit(record) {
+    record.isEdit = true;
     record.EditName = record.name;
     record.EditDescription = record.description;
   }
@@ -47,12 +55,14 @@ export class ProjectsComponent implements OnInit {
   update(recordRow) {
     let record = {};
     record['name'] = recordRow.EditName;
-    record['description'] = recordRow.EditAge;
+    record['description'] = recordRow.EditDescription;
     this.projectService.updateProject(recordRow.id, record);
     recordRow.isEdit = false;
   }
   delete(id){
     this.projectService.deleteProject(id);
   }
+
+
 
 }
