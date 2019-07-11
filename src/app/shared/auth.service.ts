@@ -87,6 +87,11 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== false) ? true : false;
   }
+  
+  get isOwner(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null && user.role == 'onwer') ? true : false;
+  }
 
   // Sign in with Google
   GoogleAuth() {

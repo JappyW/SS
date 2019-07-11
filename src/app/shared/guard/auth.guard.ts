@@ -22,5 +22,13 @@ export class AuthGuard implements CanActivate {
     }
     return true;
   }
+  canActivateOwner(
+    next:ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
+      if(this.authService.isOwner !== true){
+        this.router.navigate(['sing-in'])
+      }
+      return true;
+    }
 
 }

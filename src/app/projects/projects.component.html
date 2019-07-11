@@ -1,22 +1,20 @@
-<div class="container">
- 
+
+<div class="container"> 
         <h1 style="margin-top: 25px;">
           {{title}}
-        </h1>
-       
-        <div class="row" style="margin-top: 25px;">
-          
-          <div class="col-md-3">
-            <input type="text" id="nameEdit" class="form-control" [(ngModel)]="projectName" placeholder="Name">
-          </div>
-          <div class="col-md-3">
-            <input type="text" class="form-control" [(ngModel)]="projectDescription" placeholder="Description">
-          </div>
-          <div class="col-md-3">
-            <button type="button" (click)="create()" [disabled]="(!projectName || !projectDescription) " class="btn btn-primary">+
-              Create Project</button>
-          </div>
-        </div>
+        </h1>      
+        <div class="row" style="margin-top: 25px;">          
+            <div class="col-md-3">
+              <input type="text" id="nameEdit" class="form-control" [(ngModel)]="projectName" placeholder="Name">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" [(ngModel)]="projectDescription" placeholder="Description">
+            </div>
+            <div class="col-md-3">
+              <button type="button" (click)="create()" [disabled]="(!projectName || !projectDescription) " class="btn btn-primary">+
+                Create Project</button>
+            </div>
+          </div>        
         <div class="row" style="margin-top: 25px;">
           <div class="col-md-3">
             <input type="text" [(ngModel)]="term">
