@@ -2,15 +2,10 @@
 <div class="container"> 
     <h1 style="margin-top: 25px;">
       {{title}}
-    </h1>      
-    <div class="row" style="margin-top: 25px;">          
-        <div class="col-md-3">
-          <input type="text" id="nameEdit" class="form-control" [(ngModel)]="userEmail" placeholder="Name">
-        </div>     
-      </div>        
+    </h1>          
     <div class="row" style="margin-top: 25px;">
       <div class="col-md-3">
-        <input type="text" [(ngModel)]="term">
+        <input type="text" [(ngModel)]="term" class="form-control">
         <div class="card" style="width: 18rem; margin-top: 20px;" *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 5, currentPage: p }">
           <div class="card-body" *ngIf="!item.isEdit; else elseBlock" >
             <h5 class="card-title">{{item.email}}</h5>  
