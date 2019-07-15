@@ -22,6 +22,7 @@ export class ProjectsComponent implements OnInit {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
           description: e.payload.doc.data()['description'],
+          owner: e.payload.doc.data()['owner']
         };
       })
       console.log(this.projects);
@@ -33,6 +34,8 @@ export class ProjectsComponent implements OnInit {
     let record = {};
     record['name'] = this.projectName;
     record['description'] = this.projectDescription;
+    record['owner'] = this.authService.afAuth.auth.currentUser.email;
+    console.log(record);
     this.projectService.createProject(record).then(resp => {
       this.projectName = "";
       this.projectDescription = undefined;
@@ -59,10 +62,16 @@ export class ProjectsComponent implements OnInit {
     this.projectService.updateProject(recordRow.id, record);
     recordRow.isEdit = false;
   }
-  delete(id){
-    this.projectService.deleteProject(id);
+  delete( id){
+      this.projectService.deleteProject(id);    
   }
-
-
-
+  checkRole(record){
+    if(this.authService.afAuth.auth.currentUser){
+      if(record.owner == this.authService.afAuth.auth.currentUser.email){
+        return true
+      } 
+      else
+        false
+      }
+  }
 }

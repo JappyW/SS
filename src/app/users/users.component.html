@@ -1,1 +1,25 @@
-<p>users works!</p>
+
+<div class="container"> 
+    <h1 style="margin-top: 25px;">
+      {{title}}
+    </h1>      
+    <div class="row" style="margin-top: 25px;">          
+        <div class="col-md-3">
+          <input type="text" id="nameEdit" class="form-control" [(ngModel)]="userEmail" placeholder="Name">
+        </div>     
+      </div>        
+    <div class="row" style="margin-top: 25px;">
+      <div class="col-md-3">
+        <input type="text" [(ngModel)]="term">
+        <div class="card" style="width: 18rem; margin-top: 20px;" *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 5, currentPage: p }">
+          <div class="card-body" *ngIf="!item.isEdit; else elseBlock" >
+            <h5 class="card-title">{{item.email}}</h5>  
+            <button class="btn btn-primary" (click)="addToProject(item)">Add to Project</button>      
+          </div>          
+        </div>        
+      </div>
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+   
+   
+  </div>

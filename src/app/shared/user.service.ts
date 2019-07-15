@@ -6,18 +6,14 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 
 
-export class ProjectService {
+export class UserService {
   constructor(   private firestore: AngularFirestore   ) {}
   
-  createProject(record) {
-    return this.firestore.collection('projects').add(record);
+  getUsers() {
+    return this.firestore.collection('users').snapshotChanges();
   }
 
-  getProjects() {
-    return this.firestore.collection('projects').snapshotChanges();
-  }
-
-  getProject(id){
+  gerUser(id){
     this.firestore.doc(id).ref.get().then(function(doc) {
       if (doc.exists) {
         return doc.data();
@@ -29,11 +25,5 @@ export class ProjectService {
     });
   }
 
-  updateProject(recordID,record){
-    this.firestore.doc('projects/' + recordID).update(record);
-  }
-
-  deleteProject(record_id) {
-    this.firestore.doc('projects/' + record_id).delete();
-  }
+  
 }

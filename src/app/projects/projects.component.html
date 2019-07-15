@@ -22,13 +22,10 @@
               <div class="card-body" *ngIf="!item.isEdit; else elseBlock" >
                 <h5 class="card-title">{{item.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Description: {{item.description}}</h6>
-                <a href="#" class="card-link" (click)="edit(item)">Edit</a>
-                <a href="#" class="card-link" (click)="delete(item.id)">Delete</a>
+                <h6  class="" >Owner: {{item.owner}}</h6>
+                <a href="#" class="card-link" (click)="edit(item)" [hidden]='!checkRole(item)' >Edit</a>
+                <a href="#" class="card-link" (click)="delete(item.id)" [hidden]='!checkRole(item)' >Delete</a>
               </div>
-              <ng-template #ShowAllBlock>
-                
-                <button class="btn btn-primary " type="button" (click)="showAllProjects()">Show All</button>
-              </ng-template>
               <ng-template #elseBlock>
                 <div class="card-body">
                   <h5 class="card-title">Edit</h5>

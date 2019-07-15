@@ -12,11 +12,13 @@ import { VerifyEmailComponent } from 'src/app/components/verify-email/verify-ema
 import { AuthGuard } from "src/app/shared/guard/auth.guard";
 import { SecureInnerPagesGuard } from "src/app/shared/guard/secure-inner-pages.guard";
 import { ProjectsComponent } from './projects/projects.component';
+import { UsersComponent } from './users/users.component';
 
 // Include route guard in routes array
 const routes: Routes = [
-  { path: '', component: ProjectsComponent},
+  { path: '', component:  ProjectsComponent},
   { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
