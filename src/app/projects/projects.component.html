@@ -18,13 +18,14 @@
         <div class="row" style="margin-top: 25px;">
           <div class="col-md-3">
             <input type="text" [(ngModel)]="term">
-            <div class="card" style="width: 18rem; margin-top: 20px;" *ngFor="let item of projects |filter:term |  paginate: { itemsPerPage: 5, currentPage: p }">
+            <div class="card" style="width: 18rem; margin-top: 20px;" *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p } ; let i = index">
               <div class="card-body" *ngIf="!item.isEdit; else elseBlock" >
                 <h5 class="card-title">{{item.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Description: {{item.description}}</h6>
-                <h6  class="" >Owner: {{item.owner}}</h6>
-                <a href="#" class="card-link" (click)="edit(item)" [hidden]='!checkRole(item)' >Edit</a>
-                <a href="#" class="card-link" (click)="delete(item.id)" [hidden]='!checkRole(item)' >Delete</a>
+                <h6 class="card-subtitle text-muted" >Users: {{item.users }}</h6>
+                <h6 class="" >Owner: {{item.owner}}</h6>
+                <a href="#" class="card-link btn btn-warning" (click)="edit(item)" [hidden]='!checkRole(item)' >Edit</a>
+                <a href="#" class="card-link btn btn-danger" (click)="delete(item.id)" [hidden]='!checkRole(item)' >Delete</a>
               </div>
               <ng-template #elseBlock>
                 <div class="card-body">

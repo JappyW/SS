@@ -12,6 +12,7 @@ export class ProjectsComponent implements OnInit {
   projects: any;
   projectName: string;
   projectDescription: string;
+  users: Map<any,any>;
   
   constructor(private projectService: ProjectService, public authService: AuthService) { } 
 
@@ -22,19 +23,22 @@ export class ProjectsComponent implements OnInit {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
           description: e.payload.doc.data()['description'],
-          owner: e.payload.doc.data()['owner']
+          owner: e.payload.doc.data()['owner'],
+          users: e.payload.doc.data()['users']
         };
       })
       console.log(this.projects);
     });
   }
-
   create() {
+    var map = new Map();
+    map.set(new Object("world"),false)
     if(this.authService.isLoggedIn){
     let record = {};
     record['name'] = this.projectName;
     record['description'] = this.projectDescription;
     record['owner'] = this.authService.afAuth.auth.currentUser.email;
+    record['users'] = {mail:true};
     console.log(record);
     this.projectService.createProject(record).then(resp => {
       this.projectName = "";
