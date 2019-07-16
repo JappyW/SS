@@ -31,14 +31,11 @@ export class ProjectsComponent implements OnInit {
     });
   }
   create() {
-    var map = new Map();
-    map.set(new Object("world"),false)
     if(this.authService.isLoggedIn){
     let record = {};
     record['name'] = this.projectName;
     record['description'] = this.projectDescription;
     record['owner'] = this.authService.afAuth.auth.currentUser.email;
-    record['users'] = {mail:true};
     console.log(record);
     this.projectService.createProject(record).then(resp => {
       this.projectName = "";
