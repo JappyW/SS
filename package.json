@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
     "angular-popper": "^2.0.1",
+    "angular-reactive-form": "^1.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "cookie-parser": "^1.4.4",

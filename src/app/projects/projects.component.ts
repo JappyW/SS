@@ -8,11 +8,9 @@ import { AuthService } from '../shared/auth.service';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  filteredItems: any;
   projects: any;
   projectName: string;
   projectDescription: string;
-  users: Map<any,any>;
   
   constructor(private projectService: ProjectService, public authService: AuthService) { } 
 
@@ -32,19 +30,19 @@ export class ProjectsComponent implements OnInit {
   }
   create() {
     if(this.authService.isLoggedIn){
-    let record = {};
-    record['name'] = this.projectName;
-    record['description'] = this.projectDescription;
-    record['owner'] = this.authService.afAuth.auth.currentUser.email;
-    console.log(record);
-    this.projectService.createProject(record).then(resp => {
-      this.projectName = "";
-      this.projectDescription = undefined;
-      console.log(resp);
-    })
-      .catch(error => {
-        console.log(error);
-      });
+      let record = {};
+      record['name'] = this.projectName;
+      record['description'] = this.projectDescription;
+      record['owner'] = this.authService.afAuth.auth.currentUser.email;
+      console.log(record);
+      this.projectService.createProject(record).then(resp => {
+        this.projectName = "";
+        this.projectDescription = undefined;
+        console.log(resp);
+      })
+        .catch(error => {
+          console.log(error);
+        });
     }
     else{
       alert("You`re not registered!")
@@ -69,10 +67,11 @@ export class ProjectsComponent implements OnInit {
   checkRole(record){
     if(this.authService.afAuth.auth.currentUser){
       if(record.owner == this.authService.afAuth.auth.currentUser.email){
-        return true
+        return true;
       } 
       else
-        false
+        return false;
       }
   }
+
 }

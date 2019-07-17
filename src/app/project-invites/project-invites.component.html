@@ -1,0 +1,32 @@
+
+
+<div class="container"> 
+    <h1 style="margin-top: 25px;">
+      {{title}}
+    </h1>          
+    <div class="row" style="margin-top: 25px;">
+      <div class="col-md-3">
+        <input type="text" [(ngModel)]="term" class="form-control">
+        <div *ngFor="let item of projects |filter:term |  paginate: { itemsPerPage: 5, currentPage: p }">
+        <div class="card" style="width: 18rem; margin-top: 20px;" *ngIf="checkUsers(item.users)">
+          <div class="card-body" >
+            <h5 class="card-title">{{item.name}}</h5>
+            <h6 class="card-subtitle text-muted">Description: {{item.description}}</h6>
+            <span>Users:</span>
+            <div *ngFor="let innerItem of item.users;">
+                <span>{{innerItem.email}} </span>
+            </div>
+            <h6 class="" >Owner: {{item.owner}}</h6>
+            <div class=" row justify-content-around">
+                <button type="button" class="btn btn-primary" (click)="agree(item.id,item)">Agree</button>      
+            <button type="button" class="btn btn-primary" (click)="refuse(item.id,item)">Refuse</button>     
+            </div>
+             
+          </div>          
+        </div>          
+      </div>
+    </div>
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+ 

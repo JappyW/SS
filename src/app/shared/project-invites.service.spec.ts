@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { UserService } from './user.service';
+import { ProjectInvitesService } from '../shared/project-invites.service';
 
 
-describe('UserService', () => {
+describe('Projects-InvitesService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: UserService = TestBed.get(UserService);
+    const service: ProjectInvitesService = TestBed.get(ProjectInvitesService);
     expect(service).toBeTruthy();
   });
 });

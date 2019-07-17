@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,22 +8,18 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 
 export class UserService {
-  constructor(   private firestore: AngularFirestore   ) {}
+  constructor(   private firestore: AngularFirestore , public authService: AuthService  ) {}
   
   getUsers() {
     return this.firestore.collection('users').snapshotChanges();
   }
 
-  gerUser(id){
-    this.firestore.doc(id).ref.get().then(function(doc) {
-      if (doc.exists) {
-        return doc.data();
-      } else {
-        console.log("No such record!");
-      }
-    }).catch(function(error) {
-      console.log("Error getting record:", error);
-    });
+  getUsersProjects(){
+    return this.firestore.collection('projects', ref => ref.where('owner','==', this.authService.afAuth.auth.currentUser.email )).snapshotChanges();
+  }
+
+  updateProject(recordID,record){
+    this.firestore.doc('projects/' + recordID).update(record);
   }
 
   
