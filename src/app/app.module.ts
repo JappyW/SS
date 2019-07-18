@@ -26,6 +26,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { AuthService } from './shared/auth.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProjectInvitesComponent } from './project-invites/project-invites.component';
+import { MyProjectsComponent } from './my-projects/my-projects.component';
 
 
 
@@ -42,6 +43,7 @@ import { ProjectInvitesComponent } from './project-invites/project-invites.compo
     ForgotPasswordComponent,
     VerifyEmailComponent,
     ProjectInvitesComponent,
+    MyProjectsComponent,
    
   ],
   imports: [

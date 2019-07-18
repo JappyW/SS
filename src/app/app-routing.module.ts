@@ -14,12 +14,14 @@ import { SecureInnerPagesGuard } from "src/app/shared/guard/secure-inner-pages.g
 import { ProjectsComponent } from './projects/projects.component';
 import { UsersComponent } from './users/users.component';
 import { ProjectInvitesComponent } from './project-invites/project-invites.component';
+import { MyProjectsComponent } from './my-projects/my-projects.component';
 
 // Include route guard in routes array
 const routes: Routes = [
   { path: '', component:  ProjectsComponent},
   { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'myprojects', component: MyProjectsComponent, canActivate: [AuthGuard] },
   { path: 'invites', component: ProjectInvitesComponent, canActivate: [AuthGuard] },
   { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },

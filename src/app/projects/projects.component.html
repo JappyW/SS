@@ -24,7 +24,8 @@
                 <h6 class="card-subtitle text-muted">Description: {{item.description}}</h6>
                   <span>Users:</span>
                   <div  *ngFor="let innerItem of item.users;">
-                    <span *ngIf="innerItem.value">{{innerItem.email}} </span>
+                    <p *ngIf="innerItem.value">{{innerItem.email}} </p>
+                    <a href="#" class="card-link btn btn-danger" (click)="deleteUser(item, innerItem)" [hidden] ="!checkRole(item)" *ngIf="innerItem.value">Delete</a>
                   </div>
                 <h6 class="" >Owner: {{item.owner}}</h6>
                 <a href="#" class="card-link btn btn-warning" (click)="edit(item)" [hidden]='!checkRole(item)' >Edit</a>
@@ -36,10 +37,10 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-12">
-                        <input type="text" class="form-control" [(ngModel)]="item.EditName" placeholder="Edit Name">
+                        <input type="text" class="form-control" [(ngModel)]="item.name" placeholder="Edit Name">
                       </div>
                       <div class="col-md-12">
-                        <input type="text" class="form-control" [(ngModel)]="item.EditDescription" placeholder="Edit Description">
+                        <input type="text" class="form-control" [(ngModel)]="item.description" placeholder="Edit Description">
                       </div>
                     </div>
                   </div>       

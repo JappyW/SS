@@ -23,22 +23,27 @@ export class UsersComponent implements OnInit {
           email: e.payload.doc.data()['email'],
         };
       })
-      console.log(this.users);
     });
 
     
   }
+
+  /*ToDo: remove owner from users list*/
   addToProject(project){
-    console.log(project);
+    console.log(project.owner);
     console.log(this.userItem);
-   
-    if(!project.users){
+   if(!project.users){
       project.users.push({email:this.userItem,value:false});
     }
-    else{
+    else if(project.owner === this.userItem){
+      alert("User`s cannot be added cause he is an owner");
+    }     
+    else if(project.users.indexOf(project.users.find(x=>x.email == this.userItem)) == -1){
       project.users.push({email:this.userItem,value:false});   
-
       this.userService.updateProject(project.id, project);
+    }
+    else {
+      alert("User`s already in project");
     }
   }
 
@@ -54,7 +59,6 @@ export class UsersComponent implements OnInit {
           users: e.payload.doc.data()['users']
         };
       })
-      console.log(this.projects);
     });
   }
  

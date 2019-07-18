@@ -23,7 +23,6 @@ export class ProjectInvitesComponent implements OnInit {
           users: e.payload.doc.data()['users']
         };
       })
-      console.log(this.projects);
     });
   }
  
@@ -36,7 +35,6 @@ export class ProjectInvitesComponent implements OnInit {
 
   agree(id,record) {    
     var index = record.users.indexOf(record.users.find(x=>x.email == this.authService.afAuth.auth.currentUser.email));
-    console.log(index);
     record.users[index].value = true;
     this.projectInviteService.updateProject(id, record);
   }

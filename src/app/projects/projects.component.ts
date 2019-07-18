@@ -28,17 +28,23 @@ export class ProjectsComponent implements OnInit {
       console.log(this.projects);
     });
   }
+
+  /*ToDo: 
+    Permission for unauth. users;
+    Validation for project creation: name < 100 && desc < 200;
+  */
+
+  
   create() {
     if(this.authService.isLoggedIn){
       let record = {};
       record['name'] = this.projectName;
       record['description'] = this.projectDescription;
+      record['users'] = [];
       record['owner'] = this.authService.afAuth.auth.currentUser.email;
-      console.log(record);
       this.projectService.createProject(record).then(resp => {
         this.projectName = "";
         this.projectDescription = undefined;
-        console.log(resp);
       })
         .catch(error => {
           console.log(error);
@@ -50,17 +56,19 @@ export class ProjectsComponent implements OnInit {
   }
   edit(record) {
     record.isEdit = true;
-    record.EditName = record.name;
-    record.EditDescription = record.description;
+    record.name = record.name;
+    record.description = record.description;
   }
  
   update(recordRow) {
     let record = {};
-    record['name'] = recordRow.EditName;
-    record['description'] = recordRow.EditDescription;
+    record['name'] = recordRow.name;
+    record['description'] = recordRow.description;
     this.projectService.updateProject(recordRow.id, record);
     recordRow.isEdit = false;
   }
+
+  /*ToDo: Delete confirmation*/ 
   delete( id){
       this.projectService.deleteProject(id);    
   }
@@ -72,6 +80,12 @@ export class ProjectsComponent implements OnInit {
       else
         return false;
       }
+  }
+
+  deleteUser(record,user){
+    record.users.splice(record.users.indexOf(record.users.find(x=>x.email == user.email)),1);
+    this.projectService.updateProject(record.id, record);
+
   }
 
 }
