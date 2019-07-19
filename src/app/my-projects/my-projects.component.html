@@ -1,12 +1,12 @@
 
 <div class="container"> 
-        <h1 style="margin-top: 25px;">
-          {{title}}
-        </h1> 
+    <div class="row justify-content-center" style="margin-top: 25px;" > 
+        <div class="col-md-8 d-flex flex-column">         
+          <input type="text" class="form-control mt-3" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="term" placeholder="Search...">
+        </div>
+      </div>  
         <div class="row" style="margin-top: 25px;">
-          <div class="col-md-3" >
-            <input type="text" [(ngModel)]="term">            
-            <div class="card" style="width: 18rem; margin-top: 20px;" [hidden]="!checkRole(item)" *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+            <div class="card col-md-4" style="width: 18rem; margin-top: 20px;" [hidden]="!checkRole(item)" *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
               <div class="card-body" *ngIf="!item.isEdit; else elseBlock" >
                 <h5 class="card-title">{{item.name}}</h5>
                 <h6 class="card-subtitle text-muted">Description: {{item.description}}</h6>
@@ -14,11 +14,6 @@
                   <div  *ngFor="let innerItem of item.users;">
                     <span *ngIf="innerItem.value">{{innerItem.email}} </span>
                   </div>
-                <h6 class="" >Owner: {{item.owner}}</h6>
             </div>            
-          </div>
-        </div>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-       
-       
+          </div>       
       </div>

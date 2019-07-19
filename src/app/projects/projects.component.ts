@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'src/app/shared/projects.service'
 import { AuthService } from '../shared/auth.service';
-
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -11,6 +10,10 @@ export class ProjectsComponent implements OnInit {
   projects: any;
   projectName: string;
   projectDescription: string;
+  EditName: any;
+  EditDescription: any;
+
+  recordVariable: any;
   
   constructor(private projectService: ProjectService, public authService: AuthService) { } 
 
@@ -25,7 +28,6 @@ export class ProjectsComponent implements OnInit {
           users: e.payload.doc.data()['users']
         };
       })
-      console.log(this.projects);
     });
   }
 
@@ -55,17 +57,15 @@ export class ProjectsComponent implements OnInit {
     }
   }
   edit(record) {
-    record.isEdit = true;
-    record.name = record.name;
-    record.description = record.description;
+    this.recordVariable = record;
+    this.EditName = record.name;
+    this.EditDescription = record.description;
   }
  
-  update(recordRow) {
-    let record = {};
-    record['name'] = recordRow.name;
-    record['description'] = recordRow.description;
-    this.projectService.updateProject(recordRow.id, record);
-    recordRow.isEdit = false;
+  update() {
+    this.recordVariable.name = this.EditName;
+    this.recordVariable.description = this.EditDescription;
+    this.projectService.updateProject(this.recordVariable.id, this.recordVariable);
   }
 
   /*ToDo: Delete confirmation*/ 
@@ -80,6 +80,19 @@ export class ProjectsComponent implements OnInit {
       else
         return false;
       }
+  }
+
+  checkUsers(item){
+    if(item){      
+      for(var index = 0; index < item.length; index++){
+        if((item[index].email == this.authService.afAuth.auth.currentUser.email) && item[index].value){
+          return true;
+        }
+      }
+      return false;
+    }
+    else return false;
+
   }
 
   deleteUser(record,user){

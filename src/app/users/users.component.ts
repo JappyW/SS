@@ -28,10 +28,7 @@ export class UsersComponent implements OnInit {
     
   }
 
-  /*ToDo: remove owner from users list*/
   addToProject(project){
-    console.log(project.owner);
-    console.log(this.userItem);
    if(!project.users){
       project.users.push({email:this.userItem,value:false});
     }
@@ -64,7 +61,6 @@ export class UsersComponent implements OnInit {
  
   
 }
-  /*Зробити випадаючий список із усіма проектами власника, при виборі запрошувати користувача у вибраний проект */
 
 
 

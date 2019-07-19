@@ -6,7 +6,6 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FirestoreSettingsToken} from '@angular/fire/firestore'; 
 
-
 import { CommonModule } from "@angular/common";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,8 +26,6 @@ import { AuthService } from './shared/auth.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProjectInvitesComponent } from './project-invites/project-invites.component';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
-
-
 
 @NgModule({
   declarations: [

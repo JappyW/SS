@@ -1,59 +1,120 @@
 
 <div class="container"> 
-        <h1 style="margin-top: 25px;">
-          {{title}}
+        <h1 style="margin-top: 25px;" class="text-center">
+          Welcome!
         </h1>      
-        <div class="row" style="margin-top: 25px;">          
-            <div class="col-md-3">
-              <input type="text" id="nameEdit" class="form-control" [(ngModel)]="projectName" placeholder="Name">
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control" [(ngModel)]="projectDescription" placeholder="Description">
-            </div>
-            <div class="col-md-3">
-              <button type="button" (click)="create()" [disabled]="(!projectName || !projectDescription) " class="btn btn-primary">+
-                Create Project</button>
-            </div>
-          </div>        
-        <div class="row" style="margin-top: 25px;">
-          <div class="col-md-3">
-            <input type="text" [(ngModel)]="term">
-            <div class="card" style="width: 18rem; margin-top: 20px;" *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-              <div class="card-body" *ngIf="!item.isEdit; else elseBlock" >
-                <h5 class="card-title">{{item.name}}</h5>
-                <h6 class="card-subtitle text-muted">Description: {{item.description}}</h6>
-                  <span>Users:</span>
-                  <div  *ngFor="let innerItem of item.users;">
-                    <p *ngIf="innerItem.value">{{innerItem.email}} </p>
-                    <a href="#" class="card-link btn btn-danger" (click)="deleteUser(item, innerItem)" [hidden] ="!checkRole(item)" *ngIf="innerItem.value">Delete</a>
+        <div class="row justify-content-center" style="margin-top: 25px;" > 
+          <div class="col-md-8 d-flex flex-column">         
+            <button class="btn btn-primary" data-target="#create-project-modal" data-toggle="modal">Create New Project</button>
+            <input type="text" class="form-control mt-3" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="term" placeholder="Search...">
+          </div>
+        </div>      
+
+          <div class="modal fade" id="create-project-modal" tabindex="-1" role="dialog" aria-labelledby="create-project-modal-label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="create-project-modal-label">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <input type="text" id="nameEdit" class="form-control" [(ngModel)]="projectName" placeholder="Name">
+                    </div>
+                    <div class="col-md-12">
+                      <input type="text" class="form-control" [(ngModel)]="projectDescription" placeholder="Description">
+                    </div>
                   </div>
-                <h6 class="" >Owner: {{item.owner}}</h6>
-                <a href="#" class="card-link btn btn-warning" (click)="edit(item)" [hidden]='!checkRole(item)' >Edit</a>
-                <a href="#" class="card-link btn btn-danger" (click)="delete(item.id)" [hidden]='!checkRole(item)' >Delete</a>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="(!projectName || !projectDescription)" (click)="create()">Create</button>
+                </div>
               </div>
-              <ng-template #elseBlock>
-                <div class="card-body">
-                  <h5 class="card-title">Edit</h5>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <input type="text" class="form-control" [(ngModel)]="item.name" placeholder="Edit Name">
+            </div>
+          </div><!--create-modal-->
+
+        <div class="row " style="margin-top: 25px;">
+          <div class="col-md-12">
+            <div class="card" style=" margin-top: 20px;" *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+              <div class="card-body row justify-content-around">
+                <div class="col-md-3 d-flex flex-column">
+                  <img class="img-fluid  mx-auto d-block" style="border-radius: 100%" src="http://www.ifabpartners.com/wp-content/uploads/2015/12/IFAB_services_integrated_project_MAIN1.jpg" alt="New">
+                  <h6 class="text-center pt-2" style="color: teal;">{{item.owner}}</h6>
+                </div>
+                <div class="col-md-9">
+                  <div class="content mb-4 pb-3">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <h6 class="card-subtitle text-muted">Description: {{item.description}}</h6>
+                    <span>Users:</span>
+                    <div class="row justify-content-between p-1 ml-0 mr-0" *ngFor="let innerItem of item.users;" >
+                      <span *ngIf="innerItem.value">{{innerItem.email}} </span>
+                      <a href="#" class="card-link btn btn-danger btn-sm" (click)="deleteUser(item, innerItem)" [hidden] ="!checkRole(item)" *ngIf="innerItem.value">Release</a>
+                    </div>
+                  </div>
+                  <div class="row" style="position: absolute; bottom:0; right:30px;">                                    
+                      <a href="#" class="card-link btn btn-warning" data-toggle="modal" data-target="#update-the-record-modal" [hidden]='!checkUsers(item.users) && !checkRole(item)' (click)="edit(item)">Edit</a>
+                      <a href="#" class="card-link btn btn-danger" data-toggle="modal" data-target="#delete-the-record-modal" [hidden]='!checkRole(item)'>Delete</a>                      
+                  </div> 
+                </div> 
+              </div>            
+
+              <div class="modal fade" id="delete-the-record-modal" tabindex="-1" role="dialog" aria-labelledby="delete-the-record-modal-label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="delete-the-record-modal-label">Delete the record</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Do you realy want to delete the record?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete(item.id)">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!--delete-modal-->
+
+
+              <div class="modal fade" id="update-the-record-modal" tabindex="-1" role="dialog" aria-labelledby="update-the-record-modal-label" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="update-the-record-modal-label">Edit the record</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                      <div class="col-md-12">
-                        <input type="text" class="form-control" [(ngModel)]="item.description" placeholder="Edit Description">
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-12 mb-3">
+                            <input type="text" class="form-control" [(ngModel)]="EditName" placeholder="Edit Name">
+                          </div>
+                          <div class="col-md-12">
+                            <input type="text" class="form-control" [(ngModel)]="EditDescription" placeholder="Edit Description">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="update(item)">Update</button>
                       </div>
                     </div>
-                  </div>       
-                  <a href="#" class="card-link" (click)="item.isEdit = false">Cancel</a>
-                  <a href="#" class="card-link" (click)="update(item)">Update</a>
-                </div>
-              </ng-template>
-            </div>
-            
-          </div>
+                  </div>
+                </div>  <!--update-modal-->  
 
+            </div>
+          </div>
         </div>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <br>
+        <pagination-controls autoHide="true" responsive="true" class="text-center" (pageChange)="p = $event"></pagination-controls>
        
        
       </div>

@@ -9,12 +9,14 @@ import { ProjectInvitesService } from '../shared/project-invites.service';
 })
 export class ProjectInvitesComponent implements OnInit {
   projects: any;
+  userEmail: any;
+  projectsNULL: any;
 
   constructor(private projectInviteService: ProjectInvitesService, public authService: AuthService) { } 
 
-  ngOnInit() {
+  ngOnInit() {    
     this.projectInviteService.getProjects().subscribe(data =>{
-      this.projects = data.map(e =>{
+      this.projectsNULL = data.map(e =>{
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
@@ -23,17 +25,31 @@ export class ProjectInvitesComponent implements OnInit {
           users: e.payload.doc.data()['users']
         };
       })
+      this.showProject();
+      this.projectsNULL = {};
     });
   }
  
+  showProject(){
+    this.projectInviteService.getProjectsEmail(this.authService.afAuth.auth.currentUser.email).subscribe(data =>{
+      this.projects = data.map(e =>{
+        return {
+          id: e.payload.doc.id,
+          name: e.payload.doc.data()['name'],
+          description: e.payload.doc.data()['description'],
+          owner: e.payload.doc.data()['owner'],
+          users: e.payload.doc.data()['users']
+        };        
+      })      
+    });
+  }
  
-  refuse(id,record) {  
-   
+  refuse(id,record) {     
     record.users.splice(record.users.indexOf(record.users.find(x=>x.email == this.authService.afAuth.auth.currentUser.email)),1);
     this.projectInviteService.updateProject(id, record);
   }
 
-  agree(id,record) {    
+  agree(id,record) {   
     var index = record.users.indexOf(record.users.find(x=>x.email == this.authService.afAuth.auth.currentUser.email));
     record.users[index].value = true;
     this.projectInviteService.updateProject(id, record);
