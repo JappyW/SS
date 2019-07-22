@@ -1,2 +1,153 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/css/font-awesome.css';
+body{
+    color: #fff;
+    background-color: #374954;
+}
+.navbar{
+    padding: 0;
+    background-color: #22242d !important;
+}
+a {
+    text-decoration: none;
+}
+  
+.navbar nav {
+    font-family: monospace;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  .navbar .nav-link{
+    color: #fff !important;
+
+}
+.navbar li {
+    display: block;
+    float: left;
+    padding: 1rem;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.5s;
+  }
+    
+  li a {
+    color: #fff;
+  }
+  .navbar-brand:hover{
+      color: rgb(199, 110, 0) !important;
+  }
+  
+   li:hover,
+   li:focus-within {
+    background: rgb(199, 110, 0);
+    cursor: pointer;
+  }
+  
+  li:focus-within a {
+    outline: none;
+  }
+  
+  .current{
+    background: darkorange !important;
+  }
+  .ngx-pagination a:hover{
+    background: rgb(199, 110, 0) !important;
+    color: #fff;
+    text-decoration: none;
+  }
+  .ngx-pagination a{
+      color: #fff !important;
+  }
+
+  ul li ul {
+    background: darkorange;
+    visibility: hidden;
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+    display: none;
+  }
+  
+  .navbar ul li:hover > ul,
+  .navbar ul li:focus-within > ul,
+  .navbar ul li ul:hover,
+  .navbar ul li ul:focus {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+  }
+  
+  ul li ul li {
+    clear: both;
+    width: 100%;
+  }
+.submenu{
+  z-index: 100;
+  width: 100%;
+}
+.btn-primary{
+    
+    background-color: #3041e4;
+    border-color: #3041e4;
+}
+.btn-primary:hover{
+    background-color: #2737c9;
+    border-color: #2737c9;
+    color: #fff;
+}
+.btn{
+    text-transform: uppercase;
+    border-radius: 7px;
+    font-weight: 700;
+    color: #fff;
+}
+.btn:hover{
+    text-transform: uppercase;
+    border-radius: 7px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.modal{
+    margin-top: 10%;
+}
+
+.card, .modal-content{
+    background-color: #22242d;
+}
+input{
+    background-color: #000 !important;
+    border-color: #000 !important;
+    color: #fff !important;
+}
+input:focus{
+    background-color: #000 !important;
+    border-color: #000 !important;
+}
+.modal-header{
+    border-bottom: 1px solid #000;
+}
+.modal-footer{
+    border-top: 1px solid #000;
+}
+.modal .close{
+    color: #fff !important;
+
+}
+.card{
+    border-bottom: 5px solid #000;
+    border-right: 3px solid #000;
+
+}
+
+.muted{
+  color:rgb(194, 189, 189) !important;
+}

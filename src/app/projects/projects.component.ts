@@ -10,10 +10,12 @@ export class ProjectsComponent implements OnInit {
   projects: any;
   projectName: string;
   projectDescription: string;
-  EditName: any;
-  EditDescription: any;
-
+/*ToDo: Transform this component into two seperate components */
   recordVariable: any;
+
+  userVariable: any;
+
+  userRecordVariable: any;
   
   constructor(private projectService: ProjectService, public authService: AuthService) { } 
 
@@ -32,7 +34,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   /*ToDo: 
-    Permission for unauth. users;
     Validation for project creation: name < 100 && desc < 200;
   */
 
@@ -58,18 +59,18 @@ export class ProjectsComponent implements OnInit {
   }
   edit(record) {
     this.recordVariable = record;
-    this.EditName = record.name;
-    this.EditDescription = record.description;
+    this.projectName = record.name;
+    this.projectDescription = record.description;
   }
  
   update() {
-    this.recordVariable.name = this.EditName;
-    this.recordVariable.description = this.EditDescription;
-    this.projectService.updateProject(this.recordVariable.id, this.recordVariable);
+    this.recordVariable.name = this.projectName;
+    this.recordVariable.description = this.projectDescription;
+    this.projectService.updateProject(this.recordVariable);
   }
 
   /*ToDo: Delete confirmation*/ 
-  delete( id){
+  delete(id){
       this.projectService.deleteProject(id);    
   }
   checkRole(record){
@@ -94,10 +95,14 @@ export class ProjectsComponent implements OnInit {
     else return false;
 
   }
-
   deleteUser(record,user){
-    record.users.splice(record.users.indexOf(record.users.find(x=>x.email == user.email)),1);
-    this.projectService.updateProject(record.id, record);
+    this.userVariable = user;
+    this.userRecordVariable = record;
+  }
+
+  updateUser(){
+    this.userRecordVariable.users.splice(this.userRecordVariable.users.indexOf(this.userRecordVariable.users.find(x=>x.email == this.userVariable.email)),1);
+    this.projectService.updateProject(this.userRecordVariable.id, this.userRecordVariable);
 
   }
 
