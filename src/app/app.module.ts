@@ -9,8 +9,8 @@ import { FirestoreSettingsToken} from '@angular/fire/firestore';
 import { CommonModule } from "@angular/common";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { ProjectComponent } from './projects/project/project.component';
+import { ProjectsListComponent } from './projects-list/projects-list.component';
+import { ProjectComponent } from './projects-list/project/project.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
 import { ProjectService } from "./shared/projects.service";
@@ -30,7 +30,7 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectsComponent,
+    ProjectsListComponent,
     ProjectComponent,
     UsersComponent,
     UserComponent,

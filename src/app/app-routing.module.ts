@@ -11,14 +11,14 @@ import { VerifyEmailComponent } from 'src/app/components/verify-email/verify-ema
 // Import canActivate guard services
 import { AuthGuard } from "src/app/shared/guard/auth.guard";
 import { SecureInnerPagesGuard } from "src/app/shared/guard/secure-inner-pages.guard";
-import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsListComponent } from './projects-list/projects-list.component';
 import { UsersComponent } from './users/users.component';
 import { ProjectInvitesComponent } from './project-invites/project-invites.component';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
 
 // Include route guard in routes array
 const routes: Routes = [
-  { path: 'projects', component:  ProjectsComponent},
+  { path: 'projects', component:  ProjectsListComponent},
   { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'myprojects', component: MyProjectsComponent, canActivate: [AuthGuard] },
