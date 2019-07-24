@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { UserService } from './user.service';
-import { ProjectInvitesService } from '../shared/project-invites.service';
+import { ProjectInvitesService } from './project-invites.service';
 
 
 describe('Projects-InvitesService', () => {

@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from "src/app/user";
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { Location } from "@angular/common"
+import { User } from './models/user.model';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class AuthService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    private location: Location
+    private location: Location,
+    public toastr : NotificationService
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -49,7 +51,7 @@ export class AuthService {
         });
         this.SetUserData(result.user);
       }).catch((error) => {
-        window.alert(error.message)
+        this.toastr.showError(error.message,"Error");
       })
   }
 
@@ -62,7 +64,7 @@ export class AuthService {
         this.SendVerificationMail();
         this.SetUserData(result.user);
       }).catch((error) => {
-        window.alert(error.message)
+        this.toastr.showError(error.message,"Error");
       })
   }
 
@@ -80,7 +82,7 @@ export class AuthService {
     .then(() => {
       window.alert('Password reset email sent, check your inbox.');
     }).catch((error) => {
-      window.alert(error)
+      this.toastr.showError(error.message,"Error");
     })
   }
 
@@ -88,12 +90,8 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== false) ? true : false;
-  }
-  
-  get isOwner(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.role == 'onwer') ? true : false;
-  }
+  } 
+ 
 
   // Sign in with Google
   GoogleAuth() {

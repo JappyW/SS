@@ -1,0 +1,15 @@
+
+
+.sign-in-header:hover {
+    border-bottom: 2px solid #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.sign-up-header:hover {
+    border-bottom: 2px solid #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+

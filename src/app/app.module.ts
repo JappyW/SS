@@ -13,7 +13,7 @@ import { ProjectsListComponent } from './projects-list/projects-list.component';
 import { ProjectComponent } from './projects-list/project/project.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
-import { ProjectService } from "./shared/projects.service";
+import { ProjectService } from "./shared/services/projects.service";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -22,10 +22,12 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import { AuthService } from './shared/auth.service';
+import { AuthService } from './shared/services/auth.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProjectInvitesComponent } from './project-invites/project-invites.component';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -54,7 +57,8 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
     AngularFireDatabaseModule,
     Ng2SearchPipeModule,
     AngularFireAuthModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ToastrModule.forRoot()
   ],
   providers: [AuthService,{ provide: FirestoreSettingsToken, useValue: {} },ProjectService],
   bootstrap: [AppComponent]

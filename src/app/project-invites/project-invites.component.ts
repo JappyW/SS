@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/auth.service';
-import { ProjectInvitesService } from '../shared/project-invites.service';
+import { AuthService } from '../shared/services/auth.service';
+import { ProjectInvitesService } from '../shared/services/project-invites.service';
 
 @Component({
   selector: 'app-project-invites',

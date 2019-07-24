@@ -18,7 +18,7 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
 
 // Include route guard in routes array
 const routes: Routes = [
-  { path: 'projects', component:  ProjectsListComponent},
+  { path: '', component:  ProjectsListComponent},
   { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'myprojects', component: MyProjectsComponent, canActivate: [AuthGuard] },

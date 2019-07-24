@@ -1,0 +1,27 @@
+
+
+.sign-in-header:hover {
+    border-bottom: 2px solid #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.sign-up-header:hover {
+    border-bottom: 2px solid #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary-boot{
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary-boot:hover{
+    background-color: #026bdb;
+    border-color: #026bdb;
+}
+.redirect:hover{
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}

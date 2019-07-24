@@ -1,11 +1,11 @@
-
 export class Project {
     id: string;
     name: string;
     description: string;
-    users: {
+    users: [{
         email:string;
         value: boolean;
-    };
+        role: string;
+    }];
     owner: string;
 }

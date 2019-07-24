@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MyProjectsService } from '../shared/my-projects.service';
-import { AuthService } from '../shared/auth.service';
+import { MyProjectsService } from '../shared/services/my-projects.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-my-projects',

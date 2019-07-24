@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,6 @@ export class AuthGuard implements CanActivate {
     }
     return true;
   }
-  canActivateOwner(
-    next:ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
-      if(this.authService.isOwner !== true){
-        this.router.navigate(['sing-in'])
-      }
-      return true;
-    }
+  
 
 }
