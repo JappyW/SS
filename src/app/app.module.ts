@@ -17,17 +17,18 @@ import { ProjectService } from "./shared/services/projects.service";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AngularFireAuthModule } from "@angular/fire/auth";
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { DashboardComponent } from './auth-components/dashboard/dashboard.component';
+import { SignInComponent } from './auth-components/sign-in/sign-in.component';
+import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './auth-components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
 import { AuthService } from './shared/services/auth.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProjectInvitesComponent } from './project-invites/project-invites.component';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProjectCreateComponent } from './project-create/project-create.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     VerifyEmailComponent,
     ProjectInvitesComponent,
     MyProjectsComponent,
+    ProjectCreateComponent
    
   ],
   imports: [

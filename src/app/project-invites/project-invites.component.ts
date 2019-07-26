@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { ProjectInvitesService } from '../shared/services/project-invites.service';
+import { Project } from '../shared/services/models/project.model';
 
 @Component({
   selector: 'app-project-invites',
@@ -8,8 +9,8 @@ import { ProjectInvitesService } from '../shared/services/project-invites.servic
   styleUrls: ['./project-invites.component.css']
 })
 export class ProjectInvitesComponent implements OnInit {
-  projects: any;
-  userEmail: any;
+  projects: Project[];
+  
   projectsNULL: any;
 
   constructor(private projectInviteService: ProjectInvitesService, public authService: AuthService) { } 

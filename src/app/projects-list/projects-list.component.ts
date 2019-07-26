@@ -36,10 +36,6 @@ export class ProjectsListComponent implements OnInit {
     });
   }
 
-  /*ToDo: 
-    Validation for project creation: name < 100 && desc < 200;
-  */
-
   
   create() {
     if(this.authService.isLoggedIn){
@@ -50,10 +46,11 @@ export class ProjectsListComponent implements OnInit {
       record['owner'] = this.authService.afAuth.auth.currentUser.email;
       this.projectService.createProject(record).then(resp => {
         this.projectName = "";
-        this.projectDescription = undefined;
+        this.projectDescription = "";
       })
         .catch(error => {
-          console.log(error);
+          this.toastr.showWarning(error, error);
+
         });
     this.toastr.showSuccess("Project has been created!", "Created successfuly!");
 
@@ -98,7 +95,7 @@ export class ProjectsListComponent implements OnInit {
   checkDeveloper(item){
     if(item && this.authService.afAuth.auth.currentUser){      
       for(var index = 0; index < item.length; index++){
-        if((item[index].email == this.authService.afAuth.auth.currentUser.email && item[index].role == "Developer") && item[index].value){
+        if(item[index].email == this.authService.afAuth.auth.currentUser.email && item[index].role == "Developer" && item[index].value){
           return true;
         }
       }
@@ -110,7 +107,6 @@ export class ProjectsListComponent implements OnInit {
   } 
   checkMaintainer(item){
     if(item && this.authService.afAuth.auth.currentUser){     
-      console.log("sc");
       for(var index = 0; index < item.length; index++){
         if(item[index].email == this.authService.afAuth.auth.currentUser.email && item[index].role == "Maintainer" && item[index].value){
           return true;
