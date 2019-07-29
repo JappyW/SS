@@ -1,6 +1,5 @@
 <div class="container mt-4">
     <div class="row justify-content-center ">
-
         <div class="card col-md-6">
             <form [formGroup]="ProjectNameForm" (ngSubmit)="create()">
                 <h5 class="p-4 mt-2 mb-2" id="create-project-modal-label">Create New Project</h5>
@@ -22,10 +21,21 @@
                             [(ngModel)]="projectDescription" required placeholder="Description">
                         <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
                             <div *ngIf="f.description.errors.required">Description is required</div>
-                            <div *ngIf="f.name.errors.minlength">Description should have more than 4 symbols</div> 
-                            <div *ngIf="f.name.errors.maxlength">Description should have less than 50 symbols</div>
+                            <div *ngIf="f.description.errors.minlength">Description should have more than 4 symbols</div> 
+                            <div *ngIf="f.description.errors.maxlength">Description should have less than 50 symbols</div>
                         </div>
                     </div>
+                    <div class="col-md-12 form-group">
+                        <input type="text" class="form-control" formControlName="img" name="projectImg"
+                            [ngClass]="{ 'is-invalid': submitted && f.img.errors }"
+                            [(ngModel)]="projectImg" required placeholder="Image Src">
+                        <div *ngIf="submitted && f.img.errors" class="invalid-feedback">
+                            <div *ngIf="f.img.errors.required">Image is required</div>
+                            <div *ngIf="f.img.errors.minlength">Image should have more than 4 symbols</div> 
+                            <div *ngIf="f.img.errors.maxlength">Image should have less than 50 symbols</div>
+                        </div>
+                    </div>
+                   
                 </div>
                 <div class="row justify-content-around p-4 form-group">
                     <button type="button" class="btn btn-secondary" routerLink="/">Cancel</button>

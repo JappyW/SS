@@ -5,9 +5,10 @@
         </div>
       </div>          
     <div class="row d-flex text-center justify-content-between align-items-between p-4" style="margin-top: 25px;">
-        <div class="card col-md-4 m-4" style="margin-top: 20px" *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 5, currentPage: p }">
+        <div class="card col-md-4 m-4 " style="margin-top: 20px" *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 6, currentPage: p }">
           <div class="card-body" >
-            <h5 class="card-title" >{{item.email}}</h5>  
+              <img src="{{item.photoURL}}" alt="User" style="border-radius: 100%" class="img-fluid d-block mx-auto p-4" >
+              <h5 class="card-title" >{{(item.displayName) ? item.displayName : item.email}}</h5>  
             <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary " (click)="checkUserProjects(item)"><i class="fa fa-user-plus"></i> Add to Project</button>      
           </div>          
         </div>

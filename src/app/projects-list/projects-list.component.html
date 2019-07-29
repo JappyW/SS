@@ -14,7 +14,7 @@
             <div class="card" style=" margin-top: 20px;" *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
               <div class="card-body row justify-content-around">
                 <div class="col-md-3 d-flex flex-column">
-                  <img class="img-fluid d-block mx-auto" style="border-radius: 100%;max-height: 80%;max-width: 80%;" src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="New">
+                  <img class="img-fluid d-block mx-auto" style="border-radius: 100%;max-height: 80%;max-width: 80%;" src="{{item.imgref}}" alt="Project">
                   <h6 class="text-center pt-4" style="color: #ff8c00;">{{item.owner}}</h6>
                 </div>
                 <div class="col-md-9">

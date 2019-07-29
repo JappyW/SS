@@ -14,6 +14,7 @@ export class ProjectCreateComponent implements OnInit {
 
   projectDescription: string;
   projectName: string;
+  projectImg: string;
 
   ProjectNameForm: FormGroup;
   submitted = false;
@@ -29,6 +30,7 @@ export class ProjectCreateComponent implements OnInit {
   ngOnInit() {
     this.ProjectNameForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      img: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
       description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]]          
   });
   }
@@ -46,10 +48,17 @@ export class ProjectCreateComponent implements OnInit {
       record['name'] = this.projectName;
       record['description'] = this.projectDescription;
       record['users'] = [];
+      if(this.projectImg){
+        record['imgref'] = this.projectImg;
+      }
+      else
+        record['imgref'] = "https://image.freepik.com/free-vector/light-blue-project-management-concept_23-2147782704.jpg";
+
       record['owner'] = this.authService.afAuth.auth.currentUser.email;
       this.projectService.createProject(record).then(resp => {
         this.projectName = "";
         this.projectDescription = undefined;
+        this.projectImg = undefined;
       })
         .catch(error => {
           console.log(error);

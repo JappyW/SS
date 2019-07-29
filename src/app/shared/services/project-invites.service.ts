@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import { Project } from './models/project.model';
+import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +12,7 @@ import { AuthService } from './auth.service';
 
 
 export class ProjectInvitesService {
+  caOrCoCities$: Observable<Project[]>;
   constructor(   private firestore: AngularFirestore ,public authService: AuthService ) {} 
   
 
@@ -16,7 +21,13 @@ export class ProjectInvitesService {
   }
 
   getProjectsEmail(userEmail) {
-    return this.firestore.collection('projects', ref => ref.where("users", "array-contains", {email:userEmail, value: false})).snapshotChanges();
+    const Devs = this.firestore.collection('projects', ref => ref.where("users", "array-contains", {email:userEmail, value: false, role: "Developer"})).snapshotChanges();
+    const Main = this.firestore.collection('projects', ref => ref.where("users", "array-contains", {email:userEmail, value: false, role: "Maintainer"})).snapshotChanges();
+    return combineLatest<any[]>(Devs, Main).pipe(
+      map(arr => arr.reduce((acc, cur) => acc.concat(cur) ) ),
+    )
+    
+
   }
 
   updateProject(recordID,record){

@@ -1,5 +1,6 @@
 export class Project {
     id: string;
+    imgref: string;
     name: string;
     description: string;
     users: [{

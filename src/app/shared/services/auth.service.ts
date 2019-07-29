@@ -79,7 +79,7 @@ export class AuthService {
   ForgotPassword(passwordResetEmail) {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
-      window.alert('Password reset email sent, check your inbox.');
+      this.toastr.showSuccess('Password reset email sent, check your inbox.',"Success");
     }).catch((error) => {
       this.toastr.showError(error.message,"Error");
     })
@@ -106,7 +106,7 @@ export class AuthService {
         })
       this.SetUserData(result.user);
     }).catch((error) => {
-      window.alert(error)
+      this.toastr.showError(error.message,"Error");
     })
   }
 

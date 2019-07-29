@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
+import { User } from '../shared/services/models/user.model';
 
 @Component({
   selector: 'app-users',
@@ -8,7 +9,7 @@ import { UserService } from '../shared/services/user.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  users: any;
+  users: User[];
   projects: any;
 
   userItem : any;
@@ -19,8 +20,12 @@ export class UsersComponent implements OnInit {
     this.userService.getUsers().subscribe(data =>{
       this.users = data.map(e =>{
         return {
-          id: e.payload.doc.id,
+          uid: e.payload.doc.id,
           email: e.payload.doc.data()['email'],
+          displayName: e.payload.doc.data()['displayName'],
+          photoURL: e.payload.doc.data()['photoURL'],
+          emailVerified: e.payload.doc.data()['emailVerified'],
+
         };
       })
     });

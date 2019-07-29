@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 export class ProjectService {
   constructor(   private firestore: AngularFirestore   ) {}
+  
   
   createProject(record) {
     return this.firestore.collection('projects').add(record);
@@ -36,4 +38,6 @@ export class ProjectService {
   deleteProject(record_id) {
     this.firestore.doc('projects/' + record_id).delete();
   }
+
+  
 }

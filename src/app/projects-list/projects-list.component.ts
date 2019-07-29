@@ -3,8 +3,8 @@ import { ProjectService } from 'src/app/shared/services/projects.service'
 import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
 import { Project } from '../shared/services/models/project.model';
-import { User } from '../shared/services/models/user.model';
 import { NotificationService } from '../shared/services/notification.service';
+
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
@@ -19,14 +19,18 @@ export class ProjectsListComponent implements OnInit {
 
   recordVariable: Project;
   userVariable: any;
+
   
-  constructor(private projectService: ProjectService, public authService: AuthService, public userService : UserService, private toastr: NotificationService) { } 
+  constructor(private projectService: ProjectService, public authService: AuthService, public userService : UserService, private toastr: NotificationService) { 
+   
+  } 
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(data =>{
       this.projects = data.map(e =>{
         return {
           id: e.payload.doc.id,
+          imgref: e.payload.doc.data()['imgref'],
           name: e.payload.doc.data()['name'],
           description: e.payload.doc.data()['description'],
           owner: e.payload.doc.data()['owner'],
@@ -37,28 +41,6 @@ export class ProjectsListComponent implements OnInit {
   }
 
   
-  create() {
-    if(this.authService.isLoggedIn){
-      let record = {};
-      record['name'] = this.projectName;
-      record['description'] = this.projectDescription;
-      record['users'] = [];
-      record['owner'] = this.authService.afAuth.auth.currentUser.email;
-      this.projectService.createProject(record).then(resp => {
-        this.projectName = "";
-        this.projectDescription = "";
-      })
-        .catch(error => {
-          this.toastr.showWarning(error, error);
-
-        });
-    this.toastr.showSuccess("Project has been created!", "Created successfuly!");
-
-    }
-    else{
-      this.toastr.showWarning("You must be registered to perform this action!", "You`re not registered!");
-    }
-  }
   edit(record) {
     this.recordVariable = record;
     this.projectName = record.name;
@@ -141,6 +123,8 @@ export class ProjectsListComponent implements OnInit {
       })
     });
   } 
+
+ 
 
 
   updateProjectUsers(user,role){

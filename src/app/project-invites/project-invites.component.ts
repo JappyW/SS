@@ -20,6 +20,7 @@ export class ProjectInvitesComponent implements OnInit {
       this.projectsNULL = data.map(e =>{
         return {
           id: e.payload.doc.id,
+          imgref: e.payload.doc.data()['imgref'],
           name: e.payload.doc.data()['name'],
           description: e.payload.doc.data()['description'],
           owner: e.payload.doc.data()['owner'],
@@ -36,6 +37,7 @@ export class ProjectInvitesComponent implements OnInit {
       this.projects = data.map(e =>{
         return {
           id: e.payload.doc.id,
+          imgref: e.payload.doc.data()['imgref'],
           name: e.payload.doc.data()['name'],
           description: e.payload.doc.data()['description'],
           owner: e.payload.doc.data()['owner'],
