@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core'; 
+import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FirestoreSettingsToken} from '@angular/fire/firestore'; 
+import { FirestoreSettingsToken } from '@angular/fire/firestore';
 
 import { CommonModule } from "@angular/common";
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +29,8 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectCreateComponent } from './project-create/project-create.component';
-
+import { roundUpPipe } from 'src/app/shared/pipes/roundUp.pipe'
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -46,14 +47,16 @@ import { ProjectCreateComponent } from './project-create/project-create.componen
     VerifyEmailComponent,
     ProjectInvitesComponent,
     MyProjectsComponent,
-    ProjectCreateComponent
-   
+    ProjectCreateComponent,
+    roundUpPipe
+
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
     ReactiveFormsModule,
+    NgMultiSelectDropDownModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -64,7 +67,7 @@ import { ProjectCreateComponent } from './project-create/project-create.componen
     NgxPaginationModule,
     ToastrModule.forRoot()
   ],
-  providers: [AuthService,{ provide: FirestoreSettingsToken, useValue: {} },ProjectService],
+  providers: [AuthService, { provide: FirestoreSettingsToken, useValue: {} }, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

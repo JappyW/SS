@@ -1,25 +1,22 @@
-
 <div class="container text-center mt-4">
-    <div class="row justify-content-center d-flex">
-      <div class="col-md-6 mr-4 ">
-         <div class="authBlock card pb-4 pl-4 pr-4">  
-            <div class="header row text-left">
-                <div class="sign-in-header col-md-6 p-2" routerLink="/sign-in">Sign In</div>
-                <div class="sign-up-header col-md-6 p-2" routerLink="/register-user">Register</div>
-            </div>          
-            <h3 class="mt-2">Thank You for Registering</h3>
-            <div class="form-group mt-3">
-                <button type="button" class="btn btn-primary" (click)="authService.SendVerificationMail()">
-                    <i class="fa fa-share"></i>
-                      Resend Verification Email
-                </button>
-              </div>
-          
-              <div class="redirectToLogin">
-                  <span>Go back to?<span class="redirect" routerLink="/sign-in"> Sign in</span></span>
-                </div>                 
-          </div>
+  <div class="row justify-content-center d-flex">
+    <div class="col-md-6 mr-4 ">
+      <div class="authBlock card pb-4 pl-4 pr-4">
+        <div class="header row text-left">
+          <div class="sign-in-header col-md-6 p-2" routerLink="/sign-in">Sign In</div>
+          <div class="sign-up-header col-md-6 p-2" routerLink="/register-user">Register</div>
+        </div>
+        <h3 class="mt-2">Thank You for Registering</h3>
+        <div class="form-group mt-3">
+          <button type="button" class="btn btn-primary" (click)="authService.SendVerificationMail()">
+            <i class="fa fa-share"></i>
+            Resend Verification Email
+          </button>
+        </div>
+
+        <div class="redirectToLogin">
+          <span>Go back to?<span class="redirect" routerLink="/sign-in"> Sign in</span></span>
+        </div>
       </div>
     </div>
-
-
+  </div>

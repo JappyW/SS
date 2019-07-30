@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/services/models/user.model';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-users',
@@ -9,50 +10,54 @@ import { User } from '../shared/services/models/user.model';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  
   users: User[];
   projects: any;
 
-  userItem : any;
-  
-  constructor(private userService: UserService, public authService: AuthService) { } 
+  userItem: any;
+
+  constructor(private userService: UserService, public authService: AuthService, public toastr: NotificationService) { }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(data =>{
-      this.users = data.map(e =>{
+    this.userService.getUsers().subscribe(data => {
+      this.users = data.map(e => {
         return {
           uid: e.payload.doc.id,
           email: e.payload.doc.data()['email'],
           displayName: e.payload.doc.data()['displayName'],
           photoURL: e.payload.doc.data()['photoURL'],
-          emailVerified: e.payload.doc.data()['emailVerified'],
-
+          emailVerified: e.payload.doc.data()['emailVerified']
         };
       })
     });
 
-    
+
   }
 
-  addToProject(project){
-   if(!project.users){
-      project.users.push({email:this.userItem,value:false});
+  addToProject(project,role) {
+    if (!project.users) {
+      project.users.push({ email: this.userItem, value: false, role: role});
+      this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");      
     }
-    else if(project.owner === this.userItem){
-      alert("User`s cannot be added cause he is an owner");
-    }     
-    else if(project.users.indexOf(project.users.find(x=>x.email == this.userItem)) == -1){
-      project.users.push({email:this.userItem,value:false});   
+    else if (project.owner === this.userItem) {
+      this.toastr.showError("User is an owner!", "Cannot be added!");
+
+    }
+    else if (project.users.indexOf(project.users.find(x => x.email == this.userItem)) == -1) {
+      project.users.push({ email: this.userItem, value: false, role: role});
       this.userService.updateProject(project.id, project);
+      this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");      
     }
     else {
-      alert("User`s already in project");
+      this.toastr.showError("User is already in the project!", "Cannot be added!");
+
     }
   }
 
-  checkUserProjects(item){
+  checkUserProjects(item) {
     this.userItem = item.email;
-    this.userService.getUsersProjects().subscribe(data =>{
-      this.projects = data.map(e =>{
+    this.userService.getUsersProjects().subscribe(data => {
+      this.projects = data.map(e => {
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
@@ -63,8 +68,8 @@ export class UsersComponent implements OnInit {
       })
     });
   }
- 
-  
+
+
 }
 
 

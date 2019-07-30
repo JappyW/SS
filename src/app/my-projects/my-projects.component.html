@@ -1,32 +1,33 @@
-
-<div class="container"> 
-    <div class="row justify-content-center" style="margin-top: 25px;" > 
-        <div class="col-md-8 d-flex flex-column">         
-          <input type="text" class="form-control mt-3" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="term" placeholder="Search...">
+<div class="container">
+  <div class="row justify-content-center" style="margin-top: 25px;">
+    <div class="col-md-8 d-flex flex-column">
+      <input type="text" class="form-control mt-3" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+        [(ngModel)]="term" placeholder="Search...">
+    </div>
+  </div>
+  <div class="row d-flex justify-content-between align-items-between p-4" style="margin-top: 25px;">
+    <div class="card col-md-12 m-2 pr-4 pl-4 p-1" style="width: 18rem; margin-top: 20px;"
+      *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+      <div class="card-body row d-flex justify-content-between align-items-between"
+        *ngIf="!item.isEdit; else elseBlock">
+        <div class="col-md-4">
+          <h5 class="card-title">{{item.name}}</h5>
+          <h6 class="card-subtitle muted">{{item.description}}</h6>
         </div>
-      </div>  
-        <div class="row d-flex justify-content-between align-items-between p-4" style="margin-top: 25px;">
-            <div class="card col-md-12 m-2 pr-4 pl-4 pb-4" style="width: 18rem; margin-top: 20px;" [hidden]="!checkRole(item)" *ngFor="let item of projects|filter:term |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-              <div class="card-body row d-flex justify-content-between align-items-between" *ngIf="!item.isEdit; else elseBlock" >
-                <div class="col-md-4">
-                  <h5 class="card-title">{{item.name}}</h5>
-                  <h6 class="card-subtitle muted">{{item.description}}</h6>
-                </div>
-                <div class="col-md-4">
-                    <span *ngIf="item.users.length != 0" > Active Users: </span>
-                    <br>
-                    <span  *ngFor="let innerItem of item.users;">
-                      <span *ngIf="innerItem.value">{{innerItem.email}}; </span>
-                    </span>
-                </div> <div class="col-md-4">
-                    <span *ngIf="item.users.length != 0" > Inactive Users: </span>
-                    <br>
-                    <span  *ngFor="let innerItem of item.users;">
-                      <span class="text-muted" *ngIf="!innerItem.value">{{innerItem.email}}; </span>
-                    </span>
-                </div>              
-                
-                  
-            </div>            
-          </div>       
+        <div class="col-md-4">
+          <span *ngIf="item.users.length != 0"> Active Users: </span>
+          <br>
+          <span *ngFor="let innerItem of item.users;">
+            <span *ngIf="innerItem.value">{{innerItem.email}}; </span>
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span *ngIf="item.users.length != 0"> Inactive Users: </span>
+          <br>
+          <span *ngFor="let innerItem of item.users;">
+            <span class="text-muted" *ngIf="!innerItem.value">{{innerItem.email}}; </span>
+          </span>
+        </div>
       </div>
+    </div>
+  </div>

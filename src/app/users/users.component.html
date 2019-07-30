@@ -1,41 +1,50 @@
-<div class="container" style="width: 100%"> 
-    <div class="row justify-content-center" style="margin-top: 25px;" > 
-        <div class="col-md-8 d-flex flex-column">         
-          <input type="text" class="form-control mt-3" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="term" placeholder="Search...">
-        </div>
-      </div>          
-    <div class="row d-flex text-center justify-content-between align-items-between p-4" style="margin-top: 25px;">
-        <div class="card col-md-4 m-4 " style="margin-top: 20px" *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 6, currentPage: p }">
-          <div class="card-body" >
-              <img src="{{item.photoURL}}" alt="User" style="border-radius: 100%" class="img-fluid d-block mx-auto p-4" >
-              <h5 class="card-title" >{{(item.displayName) ? item.displayName : item.email}}</h5>  
-            <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary " (click)="checkUserProjects(item)"><i class="fa fa-user-plus"></i> Add to Project</button>      
-          </div>          
-        </div>
+<div class="container" style="width: 100%">
+  <div class="row justify-content-center" style="margin-top: 25px;">
+    <div class="col-md-8 d-flex flex-column">
+      <input type="text" class="form-control mt-3" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+        [(ngModel)]="term" placeholder="Search...">
     </div>
-    <div class="card-body" >
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <select class="form-control" ng-model="selected" [(ngModel)]='selectedOption'  #product>
-                    <option *ngFor="let project of projects" [ngValue]='project'>{{project.name}}</option>
+  </div>
+  <div class="row d-flex text-center justify-content-between align-items-around p-4" style="margin-top: 25px;">
+    <div class="card col-md-4 m-4 " style="margin-top: 20px"
+      *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 6, currentPage: p }">
+      <div class="card-body row d-flex flex-column justify-content-end">
+        <img src="{{item.photoURL}}" alt="User" style="border-radius: 100%; max-width: 200px ;max-height: 200px;" class="img-fluid d-block mx-auto p-2">
+        <h5 class="card-title">{{(item.displayName) ? item.displayName : item.email}}</h5>
+        <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary "
+          (click)="checkUserProjects(item)"><i class="fa fa-user-plus"></i> Add to the Project</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add user to the Project?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                <select class="form-control dropDownList" [(ngModel)]='selectedOption'>
+                  <option *ngFor="let project of projects" [ngValue]='project'>{{project.name}}</option>
+                </select>
+                <select class="form-control dropDownList" [(ngModel)]='selectedRole'>
+                  <option value="Developer" selected>Developer</option>
+                  <option value="Maintainer">Maintainer</option>
                 </select>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="button" data-dismiss="modal" (click)="addToProject(selectedOption)">Send</button>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="button" data-dismiss="modal"
+              (click)="addToProject(selectedOption,selectedRole)">Send</button>
           </div>
         </div>
-      </div>  
-    <pagination-controls autoHide="true" responsive="true" class="text-center" (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
   </div>
- 
+  <pagination-controls autoHide="true" responsive="true" class="text-center" (pageChange)="p = $event">
+  </pagination-controls>
+</div>

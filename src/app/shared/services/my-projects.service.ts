@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,11 @@ import { AuthService } from './auth.service';
 
 
 export class MyProjectsService {
-  constructor(   private firestore: AngularFirestore,public authService: AuthService ) {} 
-  
+  constructor(private firestore: AngularFirestore) { }
 
-  getProjectsWhereOwner() {
-    return this.firestore.collection('projects').snapshotChanges();
+
+  getProjectsEmail(userEmail) {
+    return this.firestore.collection('projects', ref => ref.where("owner", "==", userEmail)).snapshotChanges();
   }
 
 }

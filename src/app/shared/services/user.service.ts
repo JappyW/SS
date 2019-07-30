@@ -8,19 +8,23 @@ import { AuthService } from './auth.service';
 
 
 export class UserService {
-  constructor(   private firestore: AngularFirestore , public authService: AuthService  ) {}
-  
+  constructor(private firestore: AngularFirestore, public authService: AuthService) { }
+
   getUsers() {
     return this.firestore.collection('users').snapshotChanges();
   }
 
-  getUsersProjects(){
-    return this.firestore.collection('projects', ref => ref.where('owner','==', this.authService.afAuth.auth.currentUser.email )).snapshotChanges();
+  updateUser(recordID, record) {
+    this.firestore.doc('users/' + recordID).update(record);
   }
 
-  updateProject(recordID,record){
+  getUsersProjects() {
+    return this.firestore.collection('projects', ref => ref.where('owner', '==', this.authService.afAuth.auth.currentUser.email)).snapshotChanges();
+  }
+
+  updateProject(recordID, record) {
     this.firestore.doc('projects/' + recordID).update(record);
   }
 
-  
+
 }
