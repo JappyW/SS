@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
           displayName: e.payload.doc.data()['displayName'],
           photoURL: e.payload.doc.data()['photoURL'],
           emailVerified: e.payload.doc.data()['emailVerified']
-        };
+        } as User;
       })
     });
 

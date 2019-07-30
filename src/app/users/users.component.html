@@ -9,7 +9,8 @@
     <div class="card col-md-4 m-4 " style="margin-top: 20px"
       *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 6, currentPage: p }">
       <div class="card-body row d-flex flex-column justify-content-end">
-        <img src="{{item.photoURL}}" alt="User" style="border-radius: 100%; max-width: 200px ;max-height: 200px;" class="img-fluid d-block mx-auto p-2">
+        <img src="{{item.photoURL}}" alt="User" style="border-radius: 100%; max-width: 200px ;max-height: 200px;"
+          class="img-fluid d-block mx-auto p-2">
         <h5 class="card-title">{{(item.displayName) ? item.displayName : item.email}}</h5>
         <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary "
           (click)="checkUserProjects(item)"><i class="fa fa-user-plus"></i> Add to the Project</button>
@@ -28,14 +29,14 @@
             </button>
           </div>
           <div class="modal-body">
-                <select class="form-control dropDownList" [(ngModel)]='selectedOption'>
-                  <option *ngFor="let project of projects" [ngValue]='project'>{{project.name}}</option>
-                </select>
-                <select class="form-control dropDownList" [(ngModel)]='selectedRole'>
-                  <option value="Developer" selected>Developer</option>
-                  <option value="Maintainer">Maintainer</option>
-                </select>
-              </div>
+            <select class="form-control dropDownList" [(ngModel)]='selectedOption'>
+              <option *ngFor="let project of projects" [ngValue]='project'>{{project.name}}</option>
+            </select>
+            <select class="form-control dropDownList" [(ngModel)]='selectedRole'>
+              <option value="Developer" selected>Developer</option>
+              <option value="Maintainer">Maintainer</option>
+            </select>
+          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button class="btn btn-primary" type="button" data-dismiss="modal"

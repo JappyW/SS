@@ -15,7 +15,7 @@
                     </ul>                   
                 </li>
                 <li class="nav-item" routerLink="/users"><a href="" class="nav-link" routerLink="/users">Users</a></li>
-                <li class="nav-item" routerLink="/dashboard"><a href="" class="nav-link" routerLink="/dashboard" ><i class="fa fa-user"></i> User Cabinet</a></li>
+                <li class="nav-item" routerLink="/dashboard"><a href="" class="nav-link" routerLink="/dashboard" ><i class="fa fa-user"></i> {{curUser.displayName? curUser.displayName : curUser.email}}</a></li>
             </ul>
         </div>
   </nav>
