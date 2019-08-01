@@ -16,10 +16,12 @@ import { UsersComponent } from './users/users.component';
 import { ProjectInvitesComponent } from './project-invites/project-invites.component';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
 import { ProjectCreateComponent } from './project-create/project-create.component';
+import { UserEditComponent } from './auth-components/dashboard/user-edit/user-edit.component';
 
 // Include route guard in routes array
 const routes: Routes = [
   { path: '', component:  ProjectsListComponent},
+  { path: 'edit-profile', component: UserEditComponent, canActivate: [AuthGuard] },
   { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'create-project', component: ProjectCreateComponent, canActivate: [AuthGuard] },

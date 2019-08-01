@@ -4,8 +4,7 @@ import { NotificationService } from '../shared/services/notification.service';
 import { ProjectService } from '../shared/services/projects.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/services/models/user.model';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-project-create',
@@ -27,9 +26,7 @@ export class ProjectCreateComponent implements OnInit {
   constructor(private authService: AuthService, public toastr: NotificationService, private projectService: ProjectService, private fb: FormBuilder, private router: Router) {
     this.createForm();
   }
-  createForm() {
-
-  }
+  createForm() {  }
   get f() { return this.ProjectNameForm.controls; }
 
   ngOnInit() {  

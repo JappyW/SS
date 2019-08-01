@@ -12,6 +12,9 @@ export class UserService {
 
   getUsers() {
     return this.firestore.collection('users').snapshotChanges();
+  } 
+  getUsersWhereEmail(email) {
+    return this.firestore.collection('users', ref => ref.where('email', '==', email)).snapshotChanges();
   }
 
   updateUser(recordID, record) {

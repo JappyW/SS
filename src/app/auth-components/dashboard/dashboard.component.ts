@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { User } from 'src/app/shared/services/models/user.model';
-import * as firebase from 'firebase';
+import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -12,30 +11,31 @@ import { UserService } from 'src/app/shared/services/user.service';
 
 export class DashboardComponent implements OnInit {
 
-  user: User;
-  avatar: string;
-  displayName: string;
-
+  users: User[];
 
   constructor(
     public authService: AuthService,
-    public userService: UserService
+    public userService: UserService,
   ) { }
+  
 
-  ngOnInit() { }
-
-  uploadPhoto() {
-    firebase.auth().currentUser.updateProfile({
-      displayName: this.displayName,
-      photoURL: this.avatar
+  ngOnInit() {
+    this.authService.afAuth.user.subscribe(user => {
+      this.userService.getUsersWhereEmail(user.email).subscribe(data => {
+        this.users = data.map(e => {
+          return {
+            uid: e.payload.doc.id,
+            email: e.payload.doc.data()['email'],
+            displayName: e.payload.doc.data()['displayName'],
+            photoURL: e.payload.doc.data()['photoURL'],
+            emailVerified: e.payload.doc.data()['emailVerified'],
+            userDescription: e.payload.doc.data()['userDescription'],
+            userTags: e.payload.doc.data()['userTags']
+          } as User;
+        })        
+      });
     });
-    this.userService.updateUser(firebase.auth().currentUser.uid, {displayName: this.displayName, email: firebase.auth().currentUser.email,
-      emailVerified: firebase.auth().currentUser.emailVerified, photoURL: this.avatar,uid: firebase.auth().currentUser.uid} as User);
-  }
-
-  edit() {
-    this.displayName = firebase.auth().currentUser.displayName;
-    this.avatar = firebase.auth().currentUser.photoURL;
-  }
+  } 
+  
 
 }

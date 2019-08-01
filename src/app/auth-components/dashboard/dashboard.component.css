@@ -1,3 +1,6 @@
 .sidebar{
     border-left: 5px solid #000;
 }
+a:hover{
+    color: #fff;
+}

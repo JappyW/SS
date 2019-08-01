@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'src/app/shared/services/projects.service'
 import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
-import { Project } from '../shared/services/models/project.model';
+import { Project } from '../shared/models/project.model';
 import { NotificationService } from '../shared/services/notification.service';
 
 @Component({

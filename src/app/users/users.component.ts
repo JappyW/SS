@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/services/models/user.model';
+import { User } from '../shared/models/user.model';
 import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
@@ -26,7 +26,9 @@ export class UsersComponent implements OnInit {
           email: e.payload.doc.data()['email'],
           displayName: e.payload.doc.data()['displayName'],
           photoURL: e.payload.doc.data()['photoURL'],
-          emailVerified: e.payload.doc.data()['emailVerified']
+          emailVerified: e.payload.doc.data()['emailVerified'],
+          userDescription: e.payload.doc.data()['userDescription'],
+          userTags: e.payload.doc.data()['userTags']
         } as User;
       })
     });

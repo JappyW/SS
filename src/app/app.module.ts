@@ -31,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectCreateComponent } from './project-create/project-create.component';
 import { roundUpPipe } from 'src/app/shared/pipes/roundUp.pipe'
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import { UserEditComponent } from './auth-components/dashboard/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ProjectInvitesComponent,
     MyProjectsComponent,
     ProjectCreateComponent,
-    roundUpPipe
+    roundUpPipe,
+    UserEditComponent
 
   ],
   imports: [
@@ -56,7 +57,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     BrowserAnimationsModule,
     CommonModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule,
+    NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),

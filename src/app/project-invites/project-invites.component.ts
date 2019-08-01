@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { ProjectInvitesService } from '../shared/services/project-invites.service';
-import { Project } from '../shared/services/models/project.model';
+import { Project } from '../shared/models/project.model';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class ProjectInvitesComponent implements OnInit {
             description: e.payload.doc.data()['description'],
             owner: e.payload.doc.data()['owner'],
             users: e.payload.doc.data()['users']
-          };
+          } as Project;
         })
       });
     });

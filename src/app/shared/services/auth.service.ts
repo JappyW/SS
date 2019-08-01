@@ -4,17 +4,16 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { Location } from "@angular/common"
-import { User } from './models/user.model';
 import { NotificationService } from './notification.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  userData: any; // Save logged in user data
 
-
+  userData: User; // Save logged in user data
   
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -26,10 +25,10 @@ export class AuthService {
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
-    this.afAuth.authState.subscribe(user => {
+    this.afAuth.authState.subscribe(user=> {
       if (user) {
         this.userData = user;    
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        localStorage.setItem('user', JSON.stringify(this.userData as User));
         JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);
@@ -48,6 +47,7 @@ export class AuthService {
         });
         this.SetUserData(result.user);
       }).catch((error) => {
+        console.log(error);
         this.toastr.showError(error.message,"Error");
       })
   }
@@ -118,8 +118,10 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      emailVerified: user.emailVerified
-    }
+      emailVerified: user.emailVerified,
+      userDescription: user.userDescription,
+      userTags: user.userTags
+    } as User;
     return userRef.set(userData, {
       merge: true
     })
