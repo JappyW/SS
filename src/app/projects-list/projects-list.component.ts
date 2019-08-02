@@ -126,10 +126,9 @@ export class ProjectsListComponent implements OnInit {
       }
       return false;
     }
-    else
-      return false;
-
+    return false;
   }
+
   checkMaintainer(item) {
     if (item && this.authService.afAuth.auth.currentUser) {
       for (var index = 0; index < item.length; index++) {
@@ -139,8 +138,8 @@ export class ProjectsListComponent implements OnInit {
       }
       return false;
     }
-    else
-      return false;
-
+    return false;
   }
+
+  /*ToDo: Change check methods into one */
 }

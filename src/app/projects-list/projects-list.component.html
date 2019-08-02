@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row justify-content-center" style="margin: 25px 0 25px 0;">
     <div class="col-md-8 d-flex flex-column align-items-center">
-      <button class="btn btn-primary mb-2" style="max-width: 40%" routerLink="/create-project"><i
+      <button class="btn btn-primary mb-2 shadow-none" style="max-width: 40%" routerLink="/create-project"><i
           class="fa fa-plus"></i> Create</button>
       <input type="text" class="form-control mt-3" aria-label="Default" aria-describedby="inputGroup-sizing-default"
         [(ngModel)]="term" placeholder="Search...">
@@ -20,17 +20,17 @@
           <div class="col-md-9">
             <div class="content mb-4 pb-3">
               <h5 class="card-title">{{item.name}}</h5>
-              <h6 class="card-subtitle muted">{{item.description}}</h6>
+              <h6 class="card-subtitle muted mb-1">{{item.description}}</h6>
               <span *ngIf="item.users.length">Users:</span>
-              <div class="row justify-content-between pb-2 ml-0 mr-0" *ngFor="let innerItem of item.users;">
+              <div class="row justify-content-between pb-2 ml-0 mr-0" *ngFor="let innerItem of item.users;" >
                 <span [ngClass]='{normal:innerItem.value, dimmed: !innerItem.value}'>{{innerItem.email}} -
                   {{innerItem.role}}</span>
-                <a href="#" class="card-link btn btn-danger btn-sm" data-target="#delete-the-user-modal"
+                <a href="#" class="card-link btn btn-danger btn-sm" style="font-size: 0.7rem;" data-target="#delete-the-user-modal"
                   data-toggle="modal" [hidden]="!checkOwner(item)  && !checkDeveloper(item.users)"
-                  (click)="deleteUser(item,innerItem)"><i class="fa fa-user-times"></i></a>
+                  (click)="deleteUser(item,innerItem)"><i class="fa fa-xs fa-user-times" ></i></a>
               </div>
             </div>
-            <div class="row" style="position: absolute; bottom:0; right:30px;">
+            <div class="row" style="position: absolute; bottom:0; right:30px;"  >
               <a href="#" class="card-link btn btn-warning" data-toggle="modal" data-target="#update-the-record-modal"
                 [hidden]='!checkOwner(item) && !checkMaintainer(item.users) && !checkDeveloper(item.users)'
                 (click)="edit(item)"><i class="fa fa-edit"></i></a>
@@ -109,8 +109,8 @@
                 </select>
               </div>
               <div class="modal-footer ">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                <button type="button" class="btn btn-secondary shadow-none" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary shadow-none" data-dismiss="modal"
                   (click)=updateProjectUsers(selectedOption,selectedRole)>Send</button>
               </div>
             </div>
@@ -143,8 +143,8 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                <button type="button" class="btn btn-secondary shadow-none" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary shadow-none" data-dismiss="modal"
                   (click)="update(item)">Update</button>
               </div>
             </div>
