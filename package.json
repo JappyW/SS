@@ -25,6 +25,8 @@
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@material/radio": "^3.1.0",
+    "angular-bootstrap-md": "^8.1.1",
     "angular-popper": "^2.0.1",
     "angular-reactive-form": "^1.0.0",
     "body-parser": "^1.19.0",

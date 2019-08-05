@@ -9,16 +9,17 @@
     <div class="card col-md-3 col-sm-4 m-1 mt-4 " style="margin-top: 20px"
       *ngFor="let item of users |filter:term |  paginate: { itemsPerPage: 6, currentPage: p }">
       <div class="card-body row d-flex flex-column justify-content-end">
-        <h5 class="card-title">{{(item.displayName) ? item.displayName : ""}}</h5>
-        <img src="{{item.photoURL}}" alt="User" style="border-radius: 100%; max-width: 150px ;max-height: 150px;"
-          class="img-fluid d-block mx-auto p-2">
-        <h5 class="card-title">{{item.email}}</h5>
-        <p class="card-text text-left" [hidden]="!item.userDescription">About User: {{item.userDescription? item.userDescription : ""}}</p>
-        <div class="row justify-content-start p-2 mb-1">
-          <span  class="btn btn-primary btn-sm m-1" *ngFor="let tags of item.userTags">{{tags.text}}</span>
-        </div>
-        <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary shadow-none"
-          (click)="checkUserProjects(item)"><i class="fa fa-user-plus"></i> Add</button>
+          <h5 class="card-title">{{(item.displayName) ? item.displayName : ""}}</h5>
+          <img src="{{item.photoURL}}" alt="User"
+            style="border-radius: 100%; max-width: 100px; max-height: 100px;"
+            class="img-fluid d-block mx-auto p-2">
+          <h5 class="card-title">{{item.email}}</h5>
+          <span class="card-text text-left" [hidden]="!item.userDescription">About User:
+            {{item.userDescription? item.userDescription : ""}}</span>
+          <div class="row justify-content-start p-2 mb-1">
+            <span class="btn btn-primary btn-sm m-1" *ngFor="let tags of item.userTags">{{tags.text}}</span>
+          </div>
+        
       </div>
     </div>
   </div>

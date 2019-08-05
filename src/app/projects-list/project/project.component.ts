@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from "../../shared/services/projects.service";
 import { Project } from 'src/app/shared/models/project.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-project',
@@ -8,11 +9,14 @@ import { Project } from 'src/app/shared/models/project.model';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  @Input() projects:Project[];
 
-  constructor(private projectsService: ProjectService) { }
+  project: Project; 
+
+  constructor(private projectsService: ProjectService, private authService: AuthService) { }
 
   ngOnInit() {
   }
+
+ 
 
 }

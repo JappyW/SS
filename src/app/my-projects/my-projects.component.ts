@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MyProjectsService } from '../shared/services/my-projects.service';
 import { AuthService } from '../shared/services/auth.service';
+import { ProjectService } from '../shared/services/projects.service';
 
 @Component({
   selector: 'app-my-projects',
@@ -11,11 +11,13 @@ export class MyProjectsComponent implements OnInit {
 
   projects: any;
 
-  constructor(private myProjectsService: MyProjectsService, public authService: AuthService) { }
+  constructor(
+    private projectService: ProjectService, public authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.authService.afAuth.user.subscribe(user => {
-      this.myProjectsService.getProjectsEmail(user.email).subscribe(data => {
+      this.projectService.getProjectsEmailWhereOwner(user.email).subscribe(data => {
         this.projects = data.map(e => {
           return {
             id: e.payload.doc.id,

@@ -1,24 +1,25 @@
 <div style="text-align:center">
     <nav class="navbar navbar-fixed-top navbar-expand-lg bg-dark navbar-dark">
-        <a href="#" class="navbar-brand ml-4 d-flex row align-items-center justify-conent-center" routerLink="/"><i class="fa fa-git-square fa-2x mr-2" style="color: darkorange"></i>Git It Right</a>
-        <button class="navbar-toggler" data-toggle="collapse" type="button" data-target="#navbar-content" aria-controls="navbar-content">
+        <a href="#" class="navbar-brand ml-4 d-flex row align-items-center justify-conent-center" routerLink="/"><i
+                class="fa fa-git-square fa-2x mr-2" style="color: #ff8c00"></i>Git It Right</a>
+        <button class="navbar-toggler" data-toggle="collapse" type="button" data-target="#navbar-content"
+            aria-controls="navbar-content">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar-content">
             <ul class="navbar-nav ml-auto mr-4">
-                <li class="nav-item">
-                    <a href="" class="nav-link" aria-haspopup="true" routerLink="/">Projects</a>
-                    <ul class="navbar-nav d-flex flex-column submenu mt-3" aria-label="submenu">
-                        <li class="nav-item" routerLink="/"><a href="#" class="nav-link" routerLink="/">All Projects</a></li>
-                        <li class="nav-item" routerLink="/myprojects"><a href="#" class="nav-link" routerLink="/myprojects">My Projects</a></li>
-                        <li class="nav-item" routerLink="/invites"><a href="#" class="nav-link" routerLink="/invites">Invites</a></li>
-                    </ul>                   
-                </li>
+                <li class="nav-item" routerLink="/"><a href="#" class="nav-link" routerLink="/">Projects</a></li>
+                <li class="nav-item" routerLink="/myprojects"><a href="#" class="nav-link" routerLink="/myprojects">My
+                        Projects</a></li>
+                <li class="nav-item" routerLink="/invites"><a href="#" class="nav-link"
+                        routerLink="/invites">Invites</a></li>
                 <li class="nav-item" routerLink="/users"><a href="" class="nav-link" routerLink="/users">Users</a></li>
-                <li class="nav-item" routerLink="/dashboard"><a href="" class="nav-link" routerLink="/dashboard" *ngIf="curUser"><i class="fa fa-user"></i> {{curUser.displayName? curUser.displayName : curUser.email}}</a></li>
+                <li class="nav-item" routerLink="/dashboard"><a href="" class="nav-link" routerLink="/dashboard"
+                        *ngIf="curUser"><i class="fa fa-user"></i>
+                        {{curUser.displayName? curUser.displayName : curUser.email}}</a></li>
             </ul>
         </div>
-  </nav>
+    </nav>
 </div>
 <ul style="padding-left: 0px">
     <router-outlet></router-outlet>

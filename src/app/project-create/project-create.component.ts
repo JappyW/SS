@@ -4,7 +4,8 @@ import { NotificationService } from '../shared/services/notification.service';
 import { ProjectService } from '../shared/services/projects.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../shared/models/user.model';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-project-create',
@@ -19,40 +20,40 @@ export class ProjectCreateComponent implements OnInit {
 
   ProjectNameForm: FormGroup;
   submitted = false;
+  image;
 
-  users: User[];
-
-
-  constructor(private authService: AuthService, public toastr: NotificationService, private projectService: ProjectService, private fb: FormBuilder, private router: Router) {
+  constructor( 
+    private authService: AuthService, public toastr: NotificationService, private projectService: ProjectService,
+    private fb: FormBuilder, private router: Router, private domSanitizer: DomSanitizer
+  ) {
     this.createForm();
   }
+
   createForm() {  }
   get f() { return this.ProjectNameForm.controls; }
 
   ngOnInit() {  
     this.ProjectNameForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      img: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
+      img: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]]
     });
   }
-
 
   create() {
     this.submitted = true;
     if (this.ProjectNameForm.invalid) {
       return;
     }
-
     if (this.authService.isLoggedIn) {
       let record = {};
       record['name'] = this.projectName;
       record['description'] = this.projectDescription;
       record['users'] = [];
-      record['imgref'] = this.projectImg;
+      record['imgref'] = this.image;
       record['owner'] = this.authService.afAuth.auth.currentUser.email;
       this.projectService.createProject(record).then(resp => {
-        this.projectName = "";
+        this.projectName = undefined;
         this.projectDescription = undefined;
         this.projectImg = undefined;
       })
@@ -60,14 +61,11 @@ export class ProjectCreateComponent implements OnInit {
           this.toastr.showError(error,"Error"); 
         });
       this.toastr.showSuccess("Project has been created!", "Created successfuly!");
-
     }
     else {
       this.toastr.showWarning("You must be registered to perform this action!", "You`re not registered!");
     }
     this.router.navigateByUrl('/');
   }
-  
-  
 
 }

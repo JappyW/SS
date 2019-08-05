@@ -11,12 +11,12 @@
         <div class="card" style="margin-top: 20px;">
           <div class="card-body">
             <h5 class="card-title">{{item.name}}</h5>
-            <h6 class="card-subtitle muted">Description: {{item.description}}</h6>
+            <h6 class="card-subtitle muted">{{item.description}}</h6>
             <span *ngIf="item.users.length">Users: </span>
             <span *ngFor="let innerItem of item.users;">
               <span [ngClass]='{normal: innerItem.value, dimmed: !innerItem.value}'>{{innerItem.email}}; </span>
             </span>
-            <h6 class="">Owner: {{item.owner}}</h6>
+            <h6 class="" style="color:#ff8c00">{{item.owner}}</h6>
             <div class=" row justify-content-around pt-4">
               <button type="button" class="btn btn-primary shadow-none" (click)="agree(item.id,item)">Agree</button>
               <button type="button" class="btn btn-danger" data-toggle="modal"

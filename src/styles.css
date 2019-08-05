@@ -3,7 +3,7 @@
 @import '~font-awesome/css/font-awesome.css';
 
 body {
-  color: #fff;
+  color: #ffffff;
   background-color: #374954;
 }
 
@@ -17,6 +17,11 @@ body {
 
 a {
   text-decoration: none;
+  color: #fff;
+}
+
+a:hover{
+  color: #fff;
 }
 
 .navbar nav {
@@ -29,23 +34,16 @@ a {
   padding-left: 0;
 }
 
-.navbar .nav-link {
-  color: #fff !important;
-
-}
-
 .navbar li {
-  min-width: 9rem;
-  display: block;
   float: left;
   padding: 1rem;
-  position: relative;
   text-decoration: none;
   transition-duration: 0.5s;
 }
 
-li a {
-  color: #fff;
+.navbar .nav-link {
+  color: #fff !important;
+
 }
 
 .navbar-brand:hover {
@@ -63,6 +61,19 @@ li:focus-within a {
   outline: none;
 }
 
+input {
+  background-color: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+}
+
+input:focus {
+  background-color: #000 !important;
+  border-color: #000 !important;
+  border-radius: 0;
+}
+
 .current {
   background: #ff8c00 !important;
 }
@@ -77,80 +88,87 @@ li:focus-within a {
   color: #fff !important;
 }
 
-ul li ul {
-  background: #ff8c00;
-  visibility: hidden;
-  opacity: 0;
-  min-width: 9rem;
-  position: absolute;
-  transition: all 0.5s ease;
-  margin-top: 1rem;
-  left: 0;
-  display: none;
-}
-
-.navbar ul li:hover>ul,
-.navbar ul li:focus-within>ul,
-.navbar ul li ul:hover,
-.navbar ul li ul:focus {
-  visibility: visible;
-  opacity: 1;
-  display: block;
-}
-
-ul li ul li {
-  clear: both;
-  width: 100%;
-}
-
 .submenu {
   z-index: 100;
   width: 100%;
 }
 
 .btn-primary {
-  background-color: #ff8c00;
+  background-color: transparent;
   border-color: #ff8c00;
 }
 
 .btn-primary:hover {
   background-color: #c76e00;
   border-color: #c76e00;
+  color: #cecdcd;
+}
+
+.btn-primary:disabled {
+  background-color: transparent !important;
+  text-transform: uppercase;
+  border-radius: 0;
+  font-weight: 700;
+  border-width: 2px;
   color: #fff;
+  box-shadow: 0px 5px 10px rgba(darken(#ff8c00, 40%));
+  cursor: not-allowed;
 }
 
 .btn {
+  background-color: transparent;
   text-transform: uppercase;
-  border-radius: 8px;
+  border-radius: 0;
   font-weight: 700;
+  border-width: 2px;
   color: #fff;
+  box-shadow: 0px 5px 10px rgba(darken(#ff8c00, 40%));
 }
 
 .btn:hover {
+  outline: none !important;
+  background-color: transparent;
   text-transform: uppercase;
-  border-radius: 7px;
+  border-radius: 0;
   font-weight: 700;
+  color: #cecdcd;
+  box-shadow: 0px 15px 25px -5px rgba(darken(#ff8c00, 40%));
+  transform: scale(1.03);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active {
   color: #fff;
+  background-color: transparent;
+  border-color: #ff8c00;
+}
+
+.btn:disabled {
+  background-color: transparent;
+  text-transform: uppercase;
+  border-radius: 0;
+  font-weight: 700;
+  border-width: 2px;
+  color: #fff;
+  box-shadow: 0px 5px 10px rgba(darken(#ff8c00, 40%));
+  cursor: not-allowed;
+}
+
+.btn:active {
+  background-color: transparent;
+  box-shadow: 0px 4px 8px rgba(darken(#ff8c00, 30%));
+  transform: scale(.98);
 }
 
 .modal {
   margin-top: 10%;
 }
-
-.card,
-.modal-content {
+.modal-content{
+  background-color: #374954;
+}
+.card {
   background-color: #22242d;
-}
-
-input {
-  background-color: #000 !important;
-  border-color: #000 !important;
-  color: #fff !important;
-}
-
-input:focus {
-  background-color: #000 !important;
-  border-color: #000 !important;
+  border-radius: 0 !important;
 }
 
 .modal-header {
@@ -163,7 +181,6 @@ input:focus {
 
 .modal .close {
   color: #fff !important;
-
 }
 
 .card {
@@ -172,19 +189,10 @@ input:focus {
   -webkit-box-shadow: 9px 10px 28px -10px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 10px 28px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 9px 10px 28px -10px rgba(0, 0, 0, 0.75);
-
 }
 
 .muted {
   color: #c2bdbd !important;
-}
-
-#toast-container>div {
-  opacity: 1 !important;
-}
-
-.form-control {
-  color: #fff;
 }
 
 .select {
@@ -208,8 +216,32 @@ input:focus {
   box-shadow: 0 1px 5px #959595;
 }
 
-.multiselect-item-checkbox input[type="checkbox"]+div {
+.multiselect-dropdown .dropdown-btn .selected-item {
+  border: 2px solid #ff8c00 !important;
+  margin-right: 4px;
+  background: transparent !important;
+  padding: 3px !important;
+  color: #fff;
+  border-radius: 0 !important;
+  float: left;
+}
 
+li .filter-box:hover {
+  border-width: 0;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item:hover {
+  box-shadow: 0 0 transparent !important;
+  border: 2px solid #c76e00 !important;
+  margin-right: 4px;
+  background: transparent !important;
+  padding: 3px !important;
+  color: #fff;
+  border-radius: 0 !important;
+  float: left;
+}
+
+.multiselect-item-checkbox input[type="checkbox"]+div {
   position: relative;
   padding-left: 2em;
   vertical-align: middle;
@@ -222,18 +254,7 @@ input:focus {
   color: #fff !important;
 }
 
-.multiselect-dropdown .dropdown-btn .selected-item {
-  border: 1px solid #c76e00 !important;
-  margin-right: 4px;
-  background: #c76e00 !important;
-  padding: 0 5px;
-  color: #fff;
-  border-radius: 2px;
-  float: left;
-}
-
 .multiselect-item-checkbox input[type="checkbox"]+div::before {
-
   box-sizing: content-box;
   content: '';
   color: #ff8c00 !important;
@@ -255,7 +276,6 @@ input:focus {
 }
 
 .multiselect-dropdown .dropdown-btn {
-
   display: inline-block;
   border: 1px solid #000 !important;
   width: 100%;
@@ -266,9 +286,8 @@ input:focus {
   text-align: left;
   vertical-align: middle;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0 !important;
   background-color: #000;
-
 }
 
 .form-control:focus {
@@ -276,13 +295,18 @@ input:focus {
   box-shadow: inset 0 1px 1px #00000013, 0 0 8px #ff8c00;
 }
 
-.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active {
-  color: #fff;
-  background-color: #c76e00;
-  border-color: #c76e00;
+.red-icon {
+  color: #dc3545;
 }
 
-.btn:focus,.btn:active {
-  outline: none !important;
-  box-shadow: none;
+.yellow-icon {
+  color: #ffc107
+}
+
+.green-icon {
+  color: #28a745;
+}
+
+.orange-icon {
+  color: #ff8c00;
 }

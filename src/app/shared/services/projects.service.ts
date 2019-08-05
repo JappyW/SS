@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NotificationService } from './notification.service';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -9,8 +11,10 @@ import { NotificationService } from './notification.service';
 
 
 export class ProjectService {
-  constructor(private firestore: AngularFirestore, public toastr: NotificationService) { }
 
+  constructor(
+    private firestore: AngularFirestore, public toastr: NotificationService
+  ) { }
 
   createProject(record) {
     return this.firestore.collection('projects').add(record);
@@ -38,6 +42,18 @@ export class ProjectService {
 
   deleteProject(record_id) {
     this.firestore.doc('projects/' + record_id).delete();
+  }
+
+  getProjectsEmailWhereOwner(userEmail) {
+    return this.firestore.collection('projects', ref => ref.where("owner", "==", userEmail)).snapshotChanges();
+  }
+
+  getProjectsWhereEmail(userEmail) {
+    const Devs = this.firestore.collection('projects', ref => ref.where("users", "array-contains", { email: userEmail, value: false, role: "Developer" })).snapshotChanges();
+    const Main = this.firestore.collection('projects', ref => ref.where("users", "array-contains", { email: userEmail, value: false, role: "Maintainer" })).snapshotChanges();
+    return combineLatest<any[]>(Devs, Main).pipe(
+      map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
+    )
   }
 
 }

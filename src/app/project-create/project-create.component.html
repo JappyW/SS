@@ -5,6 +5,15 @@
                 <h5 class="p-4 mt-2 mb-2" id="create-project-modal-label">Create New Project</h5>
                 <div class="card-content">
                     <div class="col-md-12 mb-3 form-group">
+                        <input type="file" class="form-control" formControlName="img" accept="image/*" (change)="changeListener($event)"
+                                [ngClass]="{ 'is-invalid': submitted && f.img.errors }" placeholder="Image" required>                       
+                        <div *ngIf="submitted && f.img.errors" class="invalid-feedback">
+                            <div *ngIf="f.img.errors.required">Image is required</div>                           
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
                         <input type="text" class="form-control" formControlName="name" name="projectName"
                             [ngClass]="{ 'is-invalid': submitted && f.name.errors }" [(ngModel)]="projectName" required
                             placeholder="Name">
@@ -27,21 +36,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" formControlName="img" name="projectImg"
-                            [ngClass]="{ 'is-invalid': submitted && f.img.errors }" [(ngModel)]="projectImg" required
-                            placeholder="Image Src">
-                        <div *ngIf="submitted && f.img.errors" class="invalid-feedback">
-                            <div *ngIf="f.img.errors.required">Image is required</div>
-                            <div *ngIf="f.img.errors.minlength">Image should have more than 4 symbols</div>
-                            <div *ngIf="f.img.errors.maxlength">Image should have less than 50 symbols</div>
-                        </div>
-                    </div>                  
-
                 </div>
                 <div class="row justify-content-around p-4 form-group">
                     <button type="button" class="btn btn-secondary" routerLink="/">Cancel</button>
-                    <button class="btn btn-primary shadow-none" [disabled]="(!projectName || !projectDescription)">Create</button>
+                    <button class="btn btn-success shadow-none" [disabled]="(!projectName || !projectDescription)"><i class="fa fa-save green-icon"></i> Create</button>
                 </div>
             </form>
 

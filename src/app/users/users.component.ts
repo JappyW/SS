@@ -16,7 +16,9 @@ export class UsersComponent implements OnInit {
 
   userItem: any;
 
-  constructor(private userService: UserService, public authService: AuthService, public toastr: NotificationService) { }
+  constructor( 
+    private userService: UserService, public authService: AuthService, public toastr: NotificationService
+  ) { }
 
   ngOnInit() {
     this.userService.getUsers().subscribe(data => {
@@ -32,27 +34,23 @@ export class UsersComponent implements OnInit {
         } as User;
       })
     });
-
-
   }
 
   addToProject(project,role) {
     if (!project.users) {
       project.users.push({ email: this.userItem, value: false, role: role});
-      this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");      
+      this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");
     }
     else if (project.owner === this.userItem) {
       this.toastr.showError("User is an owner!", "Cannot be added!");
-
     }
     else if (project.users.indexOf(project.users.find(x => x.email == this.userItem)) == -1) {
       project.users.push({ email: this.userItem, value: false, role: role});
       this.userService.updateProject(project.id, project);
-      this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");      
+      this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");
     }
     else {
       this.toastr.showError("User is already in the project!", "Cannot be added!");
-
     }
   }
 

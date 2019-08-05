@@ -8,11 +8,13 @@ import { AuthService } from './auth.service';
 
 
 export class UserService {
-  constructor(private firestore: AngularFirestore, public authService: AuthService) { }
+  constructor( 
+    private firestore: AngularFirestore, public authService: AuthService
+  ) { }
 
   getUsers() {
     return this.firestore.collection('users').snapshotChanges();
-  } 
+  }
   getUsersWhereEmail(email) {
     return this.firestore.collection('users', ref => ref.where('email', '==', email)).snapshotChanges();
   }

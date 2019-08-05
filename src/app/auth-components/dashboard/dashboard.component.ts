@@ -14,10 +14,9 @@ export class DashboardComponent implements OnInit {
   users: User[];
 
   constructor(
-    public authService: AuthService,
-    public userService: UserService,
+    public authService: AuthService, public userService: UserService
   ) { }
-  
+
 
   ngOnInit() {
     this.authService.afAuth.user.subscribe(user => {
@@ -32,10 +31,10 @@ export class DashboardComponent implements OnInit {
             userDescription: e.payload.doc.data()['userDescription'],
             userTags: e.payload.doc.data()['userTags']
           } as User;
-        })        
+        })
       });
     });
-  } 
-  
+  }
+
 
 }

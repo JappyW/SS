@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { ProjectsListComponent } from './projects-list/projects-list.component';
 import { ProjectComponent } from './projects-list/project/project.component';
 import { UsersComponent } from './users/users.component';
-import { UserComponent } from './users/user/user.component';
 import { ProjectService } from "./shared/services/projects.service";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -32,6 +31,8 @@ import { ProjectCreateComponent } from './project-create/project-create.componen
 import { roundUpPipe } from 'src/app/shared/pipes/roundUp.pipe'
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UserEditComponent } from './auth-components/dashboard/user-edit/user-edit.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,6 @@ import { UserEditComponent } from './auth-components/dashboard/user-edit/user-ed
     ProjectsListComponent,
     ProjectComponent,
     UsersComponent,
-    UserComponent,
     DashboardComponent,
     SignInComponent,
     SignUpComponent,
@@ -56,6 +56,8 @@ import { UserEditComponent } from './auth-components/dashboard/user-edit/user-ed
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
+    MatRadioModule,
+    AngularFireStorageModule,
     ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,
