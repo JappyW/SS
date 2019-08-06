@@ -6,8 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NotificationService {
 
-  constructor( 
-    private toastr: ToastrService 
+  constructor(
+    private toastr: ToastrService
   ) { }
 
   showSuccess(message, title) {
@@ -30,5 +30,5 @@ export class NotificationService {
       positionClass: 'toast-bottom-right'
     });
   }
-  
+
 }

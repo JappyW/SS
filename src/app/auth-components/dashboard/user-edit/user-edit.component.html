@@ -1,15 +1,16 @@
 <div class="container mt-4">
     <div class="row justify-content-center ">
         <div class="card col-md-6">
-            <form class="card-body form-group" [formGroup]="ProjectNameForm" (ngSubmit)="uploadPhoto()">
+            <form class="card-body form-group" [formGroup]="ProjectNameForm" (ngSubmit)="uploadPhoto()"
+                (keydown.enter)="$event.preventDefault()">
                 <h5 class="p-4 mt-2 mb-2" id="create-project-modal-label">Edit the Profile</h5>
                 <div class="card-content">
                     <div class="col-md-12 mb-3 form-group">
-                        <img src="{{url}}" alt="" ="getPhotoURL()">
-                        <input type="file" class="form-control" formControlName="img" accept="image/*" (change)="detectFiles($event)"
-                                [ngClass]="{ 'is-invalid': submitted && f.img.errors }" placeholder="Image" required>                       
+                        <input type="file" class="form-control" formControlName="img" accept="image/*"
+                            (change)="detectFiles($event)" [ngClass]="{ 'is-invalid': submitted && f.img.errors }"
+                            placeholder="Image" required>
                         <div *ngIf="submitted && f.img.errors" class="invalid-feedback">
-                            <div *ngIf="f.img.errors.required">Image is required</div>                           
+                            <div *ngIf="f.img.errors.required">Image is required</div>
                         </div>
                     </div>
                     <div class="col-md-12 mb-3 form-group">
@@ -43,7 +44,7 @@
                 </div>
                 <div class="row justify-content-around p-4 form-group">
                     <button class="btn btn-secondary" routerLink="/dashboard">Cancel</button>
-                    <button class="btn btn-success" [disabled]="(!userDescription || !displayName)" >Save</button>
+                    <button class="btn btn-success" [disabled]="(!userDescription || !displayName)">Save</button>
                 </div>
             </form>
 

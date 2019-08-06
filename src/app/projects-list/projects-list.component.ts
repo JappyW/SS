@@ -5,7 +5,10 @@ import { UserService } from '../shared/services/user.service';
 import { Project } from '../shared/models/project.model';
 import { NotificationService } from '../shared/services/notification.service';
 import { User } from '../shared/models/user.model';
-import { isNgTemplate } from '@angular/compiler';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ImageService } from '../shared/services/image.service';
+import { ViewChild, ElementRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-projects-list',
@@ -13,12 +16,15 @@ import { isNgTemplate } from '@angular/compiler';
   styleUrls: ['./projects-list.component.css']
 })
 export class ProjectsListComponent implements OnInit {
+  @ViewChild('closeUpdateProjectModal', { static: false }) closeUpdateProjectModal: ElementRef;
+  @ViewChild('closeAddUsersProjectModal', { static: false }) closeAddUsersProjectModal: ElementRef;
+
   projects: Project[];
   users: User[];
-  
+
   recordVariable: Project;
   userVariable: User;
-  
+
   userRole: string;
   roles: string[] = ['Developer', 'Maintainer'];
 
@@ -30,13 +36,28 @@ export class ProjectsListComponent implements OnInit {
   showMoreUsers = 3;
   showMoreRole = 1;
 
+  ProjectNameForm: FormGroup;
+  submitted = false;
+  selectedFiles: any;
 
-  constructor( 
-    private projectService: ProjectService,public authService: AuthService,
-    public userService: UserService, private toastr: NotificationService
-  ) {}
+
+  constructor(
+    private projectService: ProjectService, public authService: AuthService, private fb: FormBuilder,
+    public userService: UserService, private toastr: NotificationService, private imageService: ImageService
+  ) {
+    this.createForm();
+  }
+
+  createForm() { }
+  get f() { return this.ProjectNameForm.controls; }
 
   ngOnInit() {
+    this.ProjectNameForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      img: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]]
+    });
+
     this.projectService.getProjects().subscribe(data => {
       this.projects = data.map(e => {
         return {
@@ -55,20 +76,28 @@ export class ProjectsListComponent implements OnInit {
     this.recordVariable = record;
     this.projectName = record.name;
     this.projectDescription = record.description;
-    this.projectImg = record.imgref;
   }
 
   update() {
-    this.projectService.updateProject(this.recordVariable.id, { name: this.projectName, description: this.projectDescription, imgref: this.projectImg } as Project);
+    this.submitted = true;
+    if (this.ProjectNameForm.invalid) {
+      return;
+    }
+    this.projectService.updateProject(this.recordVariable.id, { name: this.projectName, description: this.projectDescription } as Project);
+    this.imageService.uploadFileForProject(this.selectedFiles, this.recordVariable);
+    this.closeUpdateProjectModal.nativeElement.click();
     this.toastr.showSuccess("Project has been updated!", "Updated successfuly!");
   }
 
-  prepareToDelete(item){
+  prepareToDelete(item) {
     this.recordVariable = item;
   }
 
+  detectFiles(event) {
+    this.selectedFiles = event;
+  }
+
   delete() {
-    console.log(this.recordVariable);
     this.projectService.deleteProject(this.recordVariable.id);
     this.toastr.showSuccess("Project has been deleted!", "Deleted successfuly!");
   }
@@ -111,7 +140,7 @@ export class ProjectsListComponent implements OnInit {
       }
       else if (this.recordVariable.users.indexOf(this.recordVariable.users.find(x => x.email == user.email)) == -1) {
         this.recordVariable.users.push({ email: user.email, value: false, role: role });
-        this.toastr.showSuccess("User has been added to the project as a " + role + "!", "Added successfuly!");
+        this.toastr.showSuccess("User will be added to the project as a " + role + "!", "Added successfuly!");
 
       }
       else {
@@ -122,8 +151,19 @@ export class ProjectsListComponent implements OnInit {
       this.toastr.showError("User has no selected role!", "Cannot be added!");
   }
 
-  finishTheUpdate() {
+  finishTheUpdateForALL() {
     this.userService.updateProject(this.recordVariable.id, this.recordVariable);
+
+  }
+
+  finishTheUpdate() {
+    this.finishTheUpdateForALL();
+    this.toastr.showSuccess("Users have been added to the project", "Added successfuly!");
+  }
+
+  finishTheUpdateWithoutSave() {
+    this.toastr.showError("Users have not been added to the project", "Error");
+    this.closeAddUsersProjectModal.nativeElement.click();
   }
 
   checkOwner(record) {
@@ -147,5 +187,6 @@ export class ProjectsListComponent implements OnInit {
     }
     return false;
   }
-  /*ToDo: Change check methods into one */
+
+
 }

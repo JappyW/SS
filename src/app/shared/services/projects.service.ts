@@ -20,6 +20,18 @@ export class ProjectService {
     return this.firestore.collection('projects').add(record);
   }
 
+  create(record) {
+    return this.firestore.collection('projects').doc(record.id).set({
+      name: record.name,
+      description: record.description,
+      id: record.id,
+      imgref: record.imgref,
+      owner: record.owner,
+      users: record.users
+    })
+
+  }
+
   getProjects() {
     return this.firestore.collection('projects').snapshotChanges();
   }

@@ -20,7 +20,7 @@ a {
   color: #fff;
 }
 
-a:hover{
+a:hover {
   color: #fff;
 }
 
@@ -163,9 +163,11 @@ input:focus {
 .modal {
   margin-top: 10%;
 }
-.modal-content{
+
+.modal-content {
   background-color: #374954;
 }
+
 .card {
   background-color: #22242d;
   border-radius: 0 !important;

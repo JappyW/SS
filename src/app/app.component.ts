@@ -11,13 +11,13 @@ import { AuthService } from './shared/services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
- 
+
   users: User[];
-  curUser : User;
+  curUser: User;
 
-  constructor(public userService: UserService, public authService: AuthService){}
+  constructor(public userService: UserService, public authService: AuthService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.authService.afAuth.user.subscribe(user => {
       this.curUser = user;
       this.userService.getUsers().subscribe(data => {
@@ -34,6 +34,6 @@ export class AppComponent implements OnInit {
         })
       });
     });
-    }
+  }
 
 }

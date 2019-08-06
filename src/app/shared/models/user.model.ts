@@ -6,6 +6,5 @@ export interface User {
     emailVerified: boolean;
     userDescription?: string;
     userTags?: any;
- }
+}
 
- 

@@ -18,7 +18,7 @@ export class UserEditComponent implements OnInit {
   users: User[];
 
   url: any;
-  file: File;
+  selectedFiles: FileList;
   image: any;
   displayName: string;
   userDescription: string;
@@ -51,7 +51,7 @@ export class UserEditComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]]
     });
-    
+
     this.dropdownList = [
       { id: 1, text: 'JavaScript' },
       { id: 2, text: 'Python' },
@@ -74,7 +74,7 @@ export class UserEditComponent implements OnInit {
       { id: 19, text: 'Elixir' },
       { id: 20, text: 'Haskell' },
     ];
-    
+
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -109,37 +109,26 @@ export class UserEditComponent implements OnInit {
     });
   }
 
-  detectFiles(event) {
-      this.file = event;
-  }
-
   uploadPhoto() {
     this.submitted = true;
     if (this.ProjectNameForm.invalid) {
       return;
     }
-    firebase.auth().currentUser.updateProfile({
-      displayName: this.displayName,
-      photoURL: "1"
-    });
     this.userService.updateUser(firebase.auth().currentUser.uid, {
       displayName: this.displayName,
       email: firebase.auth().currentUser.email,
       emailVerified: firebase.auth().currentUser.emailVerified,
-      photoURL: "1",
       uid: firebase.auth().currentUser.uid,
       userDescription: this.userDescription,
       userTags: this.selectedItems
     } as User);
+
+    this.imageService.uploadFileForUser(this.selectedFiles, firebase.auth().currentUser, this.displayName)
     this.toastr.showSuccess("The profile was updated", "Updated successfuly");
     this.router.navigateByUrl('/dashboard');
   }
 
-  getPhotoURL(){
-    this.authService.afAuth.user.subscribe(user => {
-      this.url = this.imageService.getUrl(firebase.auth().currentUser.uid);
-    }
-    );
+  detectFiles(event) {
+    this.selectedFiles = event;
   }
-
 }

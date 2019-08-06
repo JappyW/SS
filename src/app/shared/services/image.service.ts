@@ -1,35 +1,73 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase';
+import { finalize } from 'rxjs/operators';
+import { async } from 'q';
+import { UserService } from './user.service';
+import { User } from '../models/user.model';
+import { ProjectService } from './projects.service';
+import { Router } from '@angular/router';
+import { Project } from '../models/project.model';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class ImageService {
-    private basePath = '/images';
     url: any;
+    storageRef = firebase.storage().ref();
+    test: any;
+    downloadURL: any;
 
-    constructor(private afStorage: AngularFireStorage) { }
+    constructor(
+        private angularFireStorage: AngularFireStorage, private userService: UserService,
+        private projectService: ProjectService, private routerLink: Router
+    ) { }
 
-    //method to upload file at firebase storage
-    async uploadFile(event, uid) {
-        if (event) {
-            var storageRef = firebase.storage().ref()           
-
-            storageRef.child('images/' + uid + "3").put(event.target.files[0]);
-        } else { alert('Please select an image'); }
+    public uploadFileForUser(event: any, user, name): void {
+        for (let i = 0; i < event.target.files.length; i++) {
+            const file = event.target.files[i];
+            const fileRef: AngularFireStorageReference = this.angularFireStorage.ref(user.uid);
+            const task: AngularFireUploadTask = this.angularFireStorage.upload(user.uid, file);
+            task.snapshotChanges()
+                .pipe(
+                    finalize(() => {
+                        fileRef.getDownloadURL().subscribe(downloadURL => {
+                            this.userService.updateUser(user.uid, {
+                                photoURL: downloadURL
+                            });
+                            firebase.auth().currentUser.updateProfile({
+                                displayName: name,
+                                photoURL: downloadURL
+                            });
+                        })
+                    })
+                )
+                .subscribe();
+        }
     }
 
-    //method to retrieve download url
-    async getUrl(uid) {
-        var storageRef = firebase.storage().ref();
-        storageRef.child('images/' + uid + "3").getDownloadURL().then(function (url) {
-            var test = url;
-            console.log(test);
-            return test;
-        }).catch(function (error) {
-            console.log(error)
-        });
+
+
+
+    public uploadFileForProject(event: any, project): void {
+        for (let i = 0; i < event.target.files.length; i++) {
+            const file = event.target.files[i];
+            const fileRef: AngularFireStorageReference = this.angularFireStorage.ref(project.id);
+            const task: AngularFireUploadTask = this.angularFireStorage.upload(project.id, file);
+            task.snapshotChanges()
+                .pipe(
+                    finalize(() => {
+                        fileRef.getDownloadURL().subscribe(downloadURL => {
+                            this.projectService.updateProject(project.id, {
+                                imgref: downloadURL
+                            } as Project);
+                        })
+                    })
+                )
+                .subscribe();
+        }
     }
+
+
 }

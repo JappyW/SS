@@ -5,10 +5,10 @@
         [(ngModel)]="term" placeholder="Search...">
     </div>
   </div>
-  <div class="row align-items-center justify-content-center d-flex" style="margin-top: 25px;">
+  <div class="row align-items-center justify-content-center d-flex p-4" style="margin-top: 25px;">
     <div class="col-md-6">
       <div *ngFor="let item of projects |filter:term |  paginate: { itemsPerPage: 5, currentPage: p }">
-        <div class="card" style="margin-top: 20px;">
+        <div class="card m-1 mt-4">
           <div class="card-body">
             <h5 class="card-title">{{item.name}}</h5>
             <h6 class="card-subtitle muted">{{item.description}}</h6>
@@ -18,9 +18,9 @@
             </span>
             <h6 class="" style="color:#ff8c00">{{item.owner}}</h6>
             <div class=" row justify-content-around pt-4">
-              <button type="button" class="btn btn-primary shadow-none" (click)="agree(item.id,item)">Agree</button>
               <button type="button" class="btn btn-danger" data-toggle="modal"
                 data-target="#refuse-the-project-modal">Refuse</button>
+              <button type="button" class="btn btn-success shadow-none" (click)="agree(item.id,item)">Agree</button>
             </div>
             <div class="modal fade" id="refuse-the-project-modal" tabindex="-1" role="dialog"
               aria-labelledby="refuse-the-project-modal-label" aria-hidden="true">

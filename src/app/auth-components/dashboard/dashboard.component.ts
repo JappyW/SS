@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit {
           } as User;
         })
       });
-    });
-  }
+    })
 
+  }
 
 }

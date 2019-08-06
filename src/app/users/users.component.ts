@@ -10,13 +10,13 @@ import { NotificationService } from '../shared/services/notification.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  
+
   users: User[];
   projects: any;
 
   userItem: any;
 
-  constructor( 
+  constructor(
     private userService: UserService, public authService: AuthService, public toastr: NotificationService
   ) { }
 
@@ -36,16 +36,16 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  addToProject(project,role) {
+  addToProject(project, role) {
     if (!project.users) {
-      project.users.push({ email: this.userItem, value: false, role: role});
+      project.users.push({ email: this.userItem, value: false, role: role });
       this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");
     }
     else if (project.owner === this.userItem) {
       this.toastr.showError("User is an owner!", "Cannot be added!");
     }
     else if (project.users.indexOf(project.users.find(x => x.email == this.userItem)) == -1) {
-      project.users.push({ email: this.userItem, value: false, role: role});
+      project.users.push({ email: this.userItem, value: false, role: role });
       this.userService.updateProject(project.id, project);
       this.toastr.showSuccess("User has been added to the project!", "Added successfuly!");
     }

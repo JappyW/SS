@@ -4,7 +4,7 @@ export class Project {
     name: string;
     description: string;
     users: [{
-        email:string;
+        email: string;
         value: boolean;
         role: string;
     }];

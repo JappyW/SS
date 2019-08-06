@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { ProjectService } from '../shared/services/projects.service';
+import { Project } from '../shared/models/project.model';
 
 @Component({
   selector: 'app-my-projects',
@@ -9,7 +10,7 @@ import { ProjectService } from '../shared/services/projects.service';
 })
 export class MyProjectsComponent implements OnInit {
 
-  projects: any;
+  projects: Project[];
 
   constructor(
     private projectService: ProjectService, public authService: AuthService
@@ -26,7 +27,7 @@ export class MyProjectsComponent implements OnInit {
             description: e.payload.doc.data()['description'],
             owner: e.payload.doc.data()['owner'],
             users: e.payload.doc.data()['users']
-          };
+          } as Project;
         })
       });
     });

@@ -12,7 +12,7 @@ import { ProjectService } from '../shared/services/projects.service';
 export class ProjectInvitesComponent implements OnInit {
   projects: Project[];
 
-  constructor( 
+  constructor(
     private projectsService: ProjectService, public authService: AuthService
   ) { }
 
